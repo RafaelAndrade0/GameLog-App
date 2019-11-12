@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
+
 import './App.css';
 import About from './components/pages/About';
 import Home from './components/pages/Home';
@@ -9,18 +11,8 @@ const App: React.FC = () => {
 	return (
 		<Router>
 			<Navbar title='GameLog' />
-			<div>
-				<nav>
-					<ul>
-						<li>
-							<Link to='/'>Home</Link>
-						</li>
-						<li>
-							<Link to='/about'>About</Link>
-						</li>
-					</ul>
-				</nav>
 
+			<Container text style={{ marginTop: '7em' }}>
 				<Switch>
 					<Route exact path='/'>
 						<Home />
@@ -29,7 +21,7 @@ const App: React.FC = () => {
 						<About />
 					</Route>
 				</Switch>
-			</div>
+			</Container>
 		</Router>
 	);
 };

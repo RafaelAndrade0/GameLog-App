@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Container, Image, Menu } from 'semantic-ui-react';
 
 interface Props {
@@ -11,15 +11,15 @@ const Navbar: React.FC<Props> = (props) => {
 		<div>
 			<Menu fixed='top' inverted>
 				<Container>
-					<Menu.Item as='a' header>
+					<Menu.Item header>
 						<Image size='mini' src='../../assets/icon.png' style={{ marginRight: '1.5em' }} />
 						<Link to='/'>{props.title}</Link>
 					</Menu.Item>
-					<Menu.Item as='a'>
+					<Menu.Item>
 						<Link to='/'>Home</Link>
 					</Menu.Item>
 
-					<Menu.Item as='a'>
+					<Menu.Item>
 						<Link to='/about'>About</Link>
 					</Menu.Item>
 				</Container>
