@@ -3,7 +3,7 @@ import { Button, Segment, Form } from 'semantic-ui-react';
 
 const GameSearch: React.FC = () => {
 	return (
-		<Segment>
+		<Segment style={{ marginBottom: '2em' }}>
 			<Form>
 				<Form.Field>
 					<input placeholder='Search Games' />

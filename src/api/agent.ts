@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 import { IGame } from '../models/game';
-import { IResult } from '../models/result';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 
@@ -15,7 +14,8 @@ const requests = {
 
 const GamesApi = {
 	list: () => requests.get('/games'),
-	create: (game: IGame) => requests.post('/games', game)
+	create: (game: IGame) => requests.post('/games', game),
+	getGame: (id: string) => requests.get(`games/${id}`)
 };
 
 export default GamesApi;

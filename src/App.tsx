@@ -7,11 +7,10 @@ import About from './components/pages/About';
 import Home from './components/pages/Home';
 import Navbar from './components/layout/Navbar';
 
-import axios from 'axios';
 import { IGame } from './models/game';
 import { IResult } from './models/result';
 import GamesApi from './api/agent';
-import { async } from 'q';
+import GameDetails from './components/games/GameDetails';
 
 const App: React.FC = () => {
 	const [ games, setGames ] = useState<IGame[]>([]);
@@ -28,7 +27,6 @@ const App: React.FC = () => {
 		setGames([ ...games, game ]);
 		await GamesApi.create(game);
 	};
-
 	return (
 		<Router>
 			<Navbar title='GameLog' />
@@ -40,6 +38,7 @@ const App: React.FC = () => {
 					<Route exact path='/about'>
 						<About />
 					</Route>
+					<Route path='/games/:id' component={GameDetails} />
 				</Switch>
 			</Container>
 		</Router>

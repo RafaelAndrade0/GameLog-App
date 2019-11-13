@@ -1,4 +1,4 @@
-import React, { FormEvent, SyntheticEvent, useState, useRef } from 'react';
+import React, { FormEvent, useState, useRef } from 'react';
 import { Segment, Form, Button, Header, DropdownProps } from 'semantic-ui-react';
 import { IGame } from '../../models/game';
 

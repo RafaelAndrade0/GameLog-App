@@ -19,7 +19,7 @@ const Home: React.FC<IProps> = ({ games, addGame }) => {
 			<Grid.Column width={10}>
 				<Fragment>
 					<GameSearch />
-					<Header as='h3'>Results</Header>
+					{/* <Header as='h3'>Results</Header> */}
 					<Games games={games} />
 				</Fragment>
 			</Grid.Column>
