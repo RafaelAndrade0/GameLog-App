@@ -25,7 +25,7 @@ const App: React.FC = () => {
 	return (
 		<Router>
 			<Navbar title='GameLog' />
-			<Container text style={{ marginTop: '7em' }}>
+			<Container style={{ marginTop: '7em' }}>
 				<Switch>
 					<Route exact path='/'>
 						<Home games={games} />
