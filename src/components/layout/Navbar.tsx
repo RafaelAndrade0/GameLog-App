@@ -12,7 +12,8 @@ const Navbar: React.FC<Props> = (props) => {
 			<Menu fixed='top' inverted>
 				<Container>
 					<Menu.Item header>
-						<Image size='mini' src='../../assets/icon.png' style={{ marginRight: '1.5em' }} />
+						<Image size='mini' src='/images/icon.png' style={{ marginRight: '1.5em' }} />
+
 						<Link to='/'>{props.title}</Link>
 					</Menu.Item>
 					<Menu.Item>

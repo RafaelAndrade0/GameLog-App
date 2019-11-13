@@ -7,13 +7,14 @@ import GameForm from '../games/GameForm';
 
 interface IProps {
 	games: IGame[];
+	addGame: (game: IGame) => void;
 }
 
-const Home: React.FC<IProps> = ({ games }) => {
+const Home: React.FC<IProps> = ({ games, addGame }) => {
 	return (
 		<Grid stackable>
 			<Grid.Column width={6}>
-				<GameForm />
+				<GameForm addGame={addGame} />
 			</Grid.Column>
 			<Grid.Column width={10}>
 				<Fragment>

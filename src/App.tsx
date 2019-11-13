@@ -10,17 +10,24 @@ import Navbar from './components/layout/Navbar';
 import axios from 'axios';
 import { IGame } from './models/game';
 import { IResult } from './models/result';
+import GamesApi from './api/agent';
+import { async } from 'q';
 
 const App: React.FC = () => {
 	const [ games, setGames ] = useState<IGame[]>([]);
 
 	useEffect(() => {
-		const getRequest = async () => {
-			const result = await axios.get<IResult<IGame[]>>('http://localhost:5000/api/v1/games');
-			setGames(result.data.data);
+		const listGames = async () => {
+			const result: IResult<IGame[]> = await GamesApi.list();
+			setGames(result.data);
 		};
-		getRequest();
+		listGames();
 	}, []);
+
+	const handleAddGame = async (game: IGame) => {
+		setGames([ ...games, game ]);
+		await GamesApi.create(game);
+	};
 
 	return (
 		<Router>
@@ -28,7 +35,7 @@ const App: React.FC = () => {
 			<Container style={{ marginTop: '7em' }}>
 				<Switch>
 					<Route exact path='/'>
-						<Home games={games} />
+						<Home addGame={handleAddGame} games={games} />
 					</Route>
 					<Route exact path='/about'>
 						<About />

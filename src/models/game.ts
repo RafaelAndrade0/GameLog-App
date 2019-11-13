@@ -1,6 +1,10 @@
 export interface IGame {
-	id: string;
+	id?: string;
 	title: string;
 	description: string;
-	photo: string;
+	genre: string;
+	plataform: string;
+	photo?: string;
+	developer: string;
+	initialrelease: string;
 }
