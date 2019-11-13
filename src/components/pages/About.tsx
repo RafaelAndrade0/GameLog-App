@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 
 const About: React.FC = () => {
 	return (

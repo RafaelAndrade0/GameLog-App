@@ -1,17 +1,17 @@
 import React, { Fragment } from 'react';
-import { Card, Grid, Image } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import GameItem from './GameItem';
+import { IGame } from '../../models/game';
 
-const Games: React.FC = () => {
+interface Iprops {
+	games: IGame[];
+}
+
+const Games: React.FC<Iprops> = ({ games }) => {
 	return (
 		<Fragment>
 			<Card.Group stackable itemsPerRow={3}>
-				<GameItem />
-				<GameItem />
-				<GameItem />
-				<GameItem />
-				<GameItem />
-				<GameItem />
+				{games.map((game: IGame) => <GameItem key={game.id} game={game} />)}
 			</Card.Group>
 		</Fragment>
 	);

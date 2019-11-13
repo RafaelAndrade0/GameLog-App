@@ -1,17 +1,24 @@
 import React, { Fragment } from 'react';
 import { Card, Image, Icon } from 'semantic-ui-react';
+import { IGame } from '../../models/game';
 
-const GameItem: React.FC = () => {
+interface Iprops {
+	game: IGame;
+}
+
+const GameItem: React.FC<Iprops> = ({ game }) => {
 	return (
 		<Fragment>
 			<Card>
-				<Image src='https://via.placeholder.com/200' wrapped ui={false} />
+				<Image src={`http://localhost:5000/uploads/${game.photo}`} wrapped ui={false} size='small' />
+				{/* <Image src='https://via.placeholder.com/200' wrapped ui={false} /> */}
 				<Card.Content>
-					<Card.Header>Title Card</Card.Header>
+					<Card.Header>{game.title}</Card.Header>
 					<Card.Meta>
 						<span className='date'>Subtitle</span>
 					</Card.Meta>
-					<Card.Description>Description Random.</Card.Description>
+					{/* <Card.Description>{game.description}</Card.Description> */}
+					<Card.Description>Description</Card.Description>
 				</Card.Content>
 				<Card.Content extra>
 					<a>
