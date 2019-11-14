@@ -81,14 +81,14 @@ const GameForm: React.FC<IProps> = ({ addGame, loading }) => {
 					type='datetime-local'
 					placeholder='Release Date'
 				/>
-				<Button
+				{/* <Button
 					floated='left'
 					content='Choose Photo'
 					labelPosition='left'
 					icon='image'
 					onClick={() => fileInputRef.current!.click()}
 				/>
-				<input ref={fileInputRef} type='file' hidden name='photo' />
+				<input ref={fileInputRef} type='file' hidden name='photo' /> */}
 
 				<Button floated='right' positive type='submit' content='Submit' />
 				<Button floated='right' type='button' content='Cancel' />

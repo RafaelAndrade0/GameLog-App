@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Segment } from 'semantic-ui-react';
 
 interface Iprops {
 	id: string;
@@ -7,9 +8,9 @@ interface Iprops {
 
 const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 	return (
-		<div>
+		<Segment>
 			<h1>{match.params.id}</h1>
-		</div>
+		</Segment>
 	);
 };
 

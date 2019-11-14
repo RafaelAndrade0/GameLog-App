@@ -2,8 +2,9 @@ import React, { Fragment } from 'react';
 import { Grid, Button, Icon } from 'semantic-ui-react';
 import Games from '../games/Games';
 import { IGame } from '../../models/game';
-import GameForm from '../games/GameForm';
 import { IPagination } from '../../models/pagination';
+import GameSearch from '../games/GameSearch';
+import DeveloperDetails from '../developers/DeveloperDetails';
 
 interface IProps {
 	games: IGame[];
@@ -25,33 +26,27 @@ const Home: React.FC<IProps> = ({ games, addGame, loading, listGames, pagination
 	return (
 		<Grid stackable>
 			<Grid.Column width={6}>
-				<GameForm addGame={addGame} loading={loading} />
+				<GameSearch />
+				<DeveloperDetails />
+				{pagination.prevPage && (
+					<Button animated floated='left' color='red' onClick={prevPage}>
+						<Button.Content visible>Prev. Page</Button.Content>
+						<Button.Content hidden>
+							<Icon name='arrow left' />
+						</Button.Content>
+					</Button>
+				)}
+				{pagination.nextPage && (
+					<Button animated floated='right' color='blue' onClick={nextPage}>
+						<Button.Content visible>Next Page</Button.Content>
+						<Button.Content hidden>
+							<Icon name='arrow right' />
+						</Button.Content>
+					</Button>
+				)}
 			</Grid.Column>
 			<Grid.Column width={10}>
 				<Fragment>
-					{/* <GameSearch /> */}
-					<Grid columns={2}>
-						<Grid.Column>
-							{pagination.prevPage && (
-								<Button animated floated='left' color='red' onClick={prevPage}>
-									<Button.Content visible>Previous Page</Button.Content>
-									<Button.Content hidden>
-										<Icon name='arrow left' />
-									</Button.Content>
-								</Button>
-							)}
-						</Grid.Column>
-						<Grid.Column>
-							{pagination.nextPage && (
-								<Button animated floated='right' color='blue' onClick={nextPage}>
-									<Button.Content visible>Next Page</Button.Content>
-									<Button.Content hidden>
-										<Icon name='arrow right' />
-									</Button.Content>
-								</Button>
-							)}
-						</Grid.Column>
-					</Grid>
 					<Games games={games} />
 				</Fragment>
 			</Grid.Column>

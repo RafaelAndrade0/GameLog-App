@@ -10,7 +10,7 @@ interface Iprops {
 const Games: React.FC<Iprops> = ({ games }) => {
 	return (
 		<Fragment>
-			<Card.Group stackable itemsPerRow={2}>
+			<Card.Group stackable itemsPerRow={3}>
 				{games.map((game: IGame) => <GameItem key={game.id} game={game} />)}
 			</Card.Group>
 		</Fragment>
