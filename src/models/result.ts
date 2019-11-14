@@ -1,6 +1,8 @@
+import { IPagination } from './pagination';
+
 export interface IResult<T> {
 	count: number;
 	data: T;
-	pagination: any;
+	pagination: IPagination;
 	success: boolean;
 }

@@ -4,9 +4,10 @@ import { IGame } from '../../models/game';
 
 interface IProps {
 	addGame: (game: IGame) => void;
+	loading: boolean;
 }
 
-const GameForm: React.FC<IProps> = ({ addGame }) => {
+const GameForm: React.FC<IProps> = ({ addGame, loading }) => {
 	const options = [
 		{ key: 'j', text: 'Jrpg', value: 'jrpg' },
 		{ key: 'r', text: 'Rpg', value: 'rpg' },
@@ -27,9 +28,9 @@ const GameForm: React.FC<IProps> = ({ addGame }) => {
 
 	const [ game, setGame ] = useState<IGame>({
 		description: '',
-		photo: '',
 		title: '',
 		genre: '',
+		photo: 'no-photo.png',
 		initialrelease: '2020-10-19',
 		plataform: '',
 		developer: '5d725cd2c4ded7bcb480eaa2'
@@ -47,7 +48,6 @@ const GameForm: React.FC<IProps> = ({ addGame }) => {
 
 	const handleFormSubmit = () => {
 		console.log(game);
-		game.id = (Math.floor(Math.random() * 100) + 1).toString();
 		addGame(game);
 	};
 
@@ -55,6 +55,7 @@ const GameForm: React.FC<IProps> = ({ addGame }) => {
 
 	return (
 		<Segment clearing>
+			{loading && <h1>Loading....</h1>}
 			<Header as='h3'>Add Component</Header>
 			<Form onSubmit={handleFormSubmit}>
 				<Form.Input onChange={handleInputChange} name='title' placeholder='Title' />
