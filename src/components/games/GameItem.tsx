@@ -1,13 +1,16 @@
 import React, { Fragment } from 'react';
-import { Card, Image, Icon, Button, Rating } from 'semantic-ui-react';
+import { Card, Image, Icon, Button, Rating, List } from 'semantic-ui-react';
 import { IGame } from '../../models/game';
 import { Link } from 'react-router-dom';
+import { IDeveloper } from '../../models/developer';
 
 interface Iprops {
 	game: IGame;
+	// developer: IDeveloper;
+	setDeveloperDetails: (developer: IDeveloper) => void;
 }
 
-const GameItem: React.FC<Iprops> = ({ game }) => {
+const GameItem: React.FC<Iprops> = ({ game, setDeveloperDetails }) => {
 	return (
 		<Fragment>
 			<Card>
@@ -16,11 +19,20 @@ const GameItem: React.FC<Iprops> = ({ game }) => {
 				<Card.Content>
 					<Card.Header>{game.title}</Card.Header>
 					<Rating icon='star' defaultRating={3} maxRating={4} />
-					{/* <Card.Meta>
-						<span className='date'>Subtitle</span>
-					</Card.Meta> */}
-					{/* <Card.Description>{game.description}</Card.Description> */}
-					{/* <Card.Description>Description</Card.Description> */}
+					<Card.Description>
+						<List>
+							{game.developer.map((developer: IDeveloper, index: number) => (
+								<List.Item key={index}>
+									<List.Icon name='tag' />
+									<List.Content>
+										<List.Header onClick={() => setDeveloperDetails(developer)} as='a'>
+											{developer.name}
+										</List.Header>
+									</List.Content>
+								</List.Item>
+							))}
+						</List>
+					</Card.Description>
 				</Card.Content>
 				<Card.Content extra>
 					<Link to={`games/${game.id}`}>

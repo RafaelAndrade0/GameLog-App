@@ -12,11 +12,15 @@ import { IResult } from './models/result';
 import GamesApi from './api/agent';
 import GameDetails from './components/games/GameDetails';
 import { IPagination } from './models/pagination';
+import { IDeveloper } from './models/developer';
 
 const App: React.FC = () => {
+	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };
+
 	const [ games, setGames ] = useState<IGame[]>([]);
 	const [ pagination, setPagination ] = useState<IPagination>({ baseUrl: '', page: 1 });
 	const [ loading, setLoading ] = useState<boolean>(false);
+	const [ developer, setDeveloper ] = useState<IDeveloper>(initialDeveloper);
 
 	useEffect(() => {
 		listGames(1);
@@ -36,6 +40,11 @@ const App: React.FC = () => {
 			setLoading(false);
 		}, 2000);
 	};
+
+	const setDeveloperDetails = (developer: IDeveloper) => {
+		setDeveloper(developer);
+	};
+
 	return (
 		<Router>
 			<Navbar title='GameLog' />
@@ -48,6 +57,8 @@ const App: React.FC = () => {
 							addGame={handleAddGame}
 							games={games}
 							loading={loading}
+							developer={developer}
+							setDeveloperDetails={setDeveloperDetails}
 						/>
 					</Route>
 					<Route exact path='/about'>

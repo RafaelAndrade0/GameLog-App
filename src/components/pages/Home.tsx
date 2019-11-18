@@ -5,21 +5,30 @@ import { IGame } from '../../models/game';
 import { IPagination } from '../../models/pagination';
 import GameSearch from '../games/GameSearch';
 import DeveloperDetails from '../developers/DeveloperDetails';
+import { IDeveloper } from '../../models/developer';
 
 interface IProps {
 	games: IGame[];
+	developer: IDeveloper;
 	pagination: IPagination;
 	loading: boolean;
 	addGame: (game: IGame) => void;
 	listGames: (page: string | undefined | number) => void;
+	setDeveloperDetails: (developer: IDeveloper) => void;
 }
 
-const Home: React.FC<IProps> = ({ games, addGame, loading, listGames, pagination }) => {
+const Home: React.FC<IProps> = ({ games, addGame, loading, listGames, pagination, setDeveloperDetails, developer }) => {
 	const nextPage = () => {
+		// if (developer.id !== '') {
+		// 	setDeveloperDetails({ id: '', description: '', headquarters: '', name: '', website: '' });
+		// }
 		listGames(pagination.nextPage);
 	};
 
 	const prevPage = () => {
+		// if (developer.id !== '') {
+		// 	setDeveloperDetails({ id: '', description: '', headquarters: '', name: '', website: '' });
+		// }
 		listGames(pagination.prevPage);
 	};
 
@@ -27,7 +36,7 @@ const Home: React.FC<IProps> = ({ games, addGame, loading, listGames, pagination
 		<Grid stackable>
 			<Grid.Column width={6}>
 				<GameSearch />
-				<DeveloperDetails />
+				<DeveloperDetails developer={developer} />
 				{pagination.prevPage && (
 					<Button animated floated='left' color='red' onClick={prevPage}>
 						<Button.Content visible>Prev. Page</Button.Content>
@@ -47,7 +56,7 @@ const Home: React.FC<IProps> = ({ games, addGame, loading, listGames, pagination
 			</Grid.Column>
 			<Grid.Column width={10}>
 				<Fragment>
-					<Games games={games} />
+					<Games setDeveloperDetails={setDeveloperDetails} games={games} />
 				</Fragment>
 			</Grid.Column>
 		</Grid>

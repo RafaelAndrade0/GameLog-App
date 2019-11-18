@@ -1,3 +1,5 @@
+import { IDeveloper } from './developer';
+
 export interface IGame {
 	id?: string;
 	title: string;
@@ -5,6 +7,6 @@ export interface IGame {
 	genre: string;
 	plataform: string;
 	photo?: string;
-	developer: string;
+	developer: IDeveloper[];
 	initialrelease: string;
 }
