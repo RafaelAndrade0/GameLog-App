@@ -13,6 +13,8 @@ import GamesApi from './api/agent';
 import GameDetails from './components/games/GameDetails';
 import { IPagination } from './models/pagination';
 import { IDeveloper } from './models/developer';
+import LoginComponent from './components/auth/LoginComponent';
+import { ScrollToTop } from './utils/scrollToTop';
 
 const App: React.FC = () => {
 	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };
@@ -47,9 +49,13 @@ const App: React.FC = () => {
 
 	return (
 		<Router>
+			<ScrollToTop />
 			<Navbar title='GameLog' />
 			<Container style={{ marginTop: '7em' }}>
 				<Switch>
+					<Route exact path='/login'>
+						<LoginComponent />
+					</Route>
 					<Route exact path='/'>
 						<Home
 							pagination={pagination}
