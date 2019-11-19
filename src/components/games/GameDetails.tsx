@@ -1,10 +1,11 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Segment, Item, Label, Container, Image, Button, Icon } from 'semantic-ui-react';
+import { Segment, Item, Label, Container, Button, Icon } from 'semantic-ui-react';
 import GamesApi from '../../api/agent';
 import { IGame } from '../../models/game';
 import { IResult } from '../../models/result';
 import { Link } from 'react-router-dom';
+import ReviewGame from '../reviews/GameReview';
 
 interface Iprops {
 	id: string;
@@ -61,6 +62,8 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 					</Item>
 				</Container>
 			</Segment>
+
+			<ReviewGame title={singleGame.title} />
 		</Fragment>
 	);
 };

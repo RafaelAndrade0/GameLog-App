@@ -13,8 +13,8 @@ const GameItem: React.FC<Iprops> = ({ game, setDeveloperDetails }) => {
 	return (
 		<Fragment>
 			<Card>
-				<Image src={`http://localhost:5000/uploads/${game.photo}`} wrapped ui={false} size='small' />
-				{/* <Image src='https://via.placeholder.com/200' wrapped ui={false} /> */}
+				{/* <Image src={`http://localhost:5000/uploads/${game.photo}`} wrapped ui={false} size='small' /> */}
+				<Image src='https://via.placeholder.com/200' wrapped ui={false} />
 				<Card.Content>
 					<Card.Header>{game.title}</Card.Header>
 					<Rating icon='star' defaultRating={3} maxRating={4} />
