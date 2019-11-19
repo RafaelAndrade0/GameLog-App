@@ -1,21 +1,17 @@
 import React, { Fragment } from 'react';
 import { Card } from 'semantic-ui-react';
-import GameItem from './GameItem';
 import { IGame } from '../../models/game';
-import { IDeveloper } from '../../models/developer';
 
 interface Iprops {
 	games: IGame[];
-	setDeveloperDetails: (developer: IDeveloper) => void;
+	renderItem: (game: IGame, index: number) => JSX.Element;
 }
 
-const Games: React.FC<Iprops> = ({ games, setDeveloperDetails }) => {
+const Games: React.FC<Iprops> = ({ games, renderItem }) => {
 	return (
 		<Fragment>
 			<Card.Group stackable itemsPerRow={3}>
-				{games.map((game: IGame) => (
-					<GameItem setDeveloperDetails={setDeveloperDetails} key={game.id} game={game} />
-				))}
+				{games.map((game, index) => renderItem(game, index))}
 			</Card.Group>
 		</Fragment>
 	);

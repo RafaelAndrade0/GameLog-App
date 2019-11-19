@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
-import { Grid, Button, Icon } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import Games from '../games/Games';
 import { IGame } from '../../models/game';
 import { IPagination } from '../../models/pagination';
 import GameSearch from '../games/GameSearch';
 import DeveloperDetails from '../developers/DeveloperDetails';
 import { IDeveloper } from '../../models/developer';
+import GameItem from '../games/GameItem';
+import Pagination from '../layout/Pagination';
 
 interface IProps {
 	games: IGame[];
@@ -17,18 +19,12 @@ interface IProps {
 	setDeveloperDetails: (developer: IDeveloper) => void;
 }
 
-const Home: React.FC<IProps> = ({ games, addGame, loading, listGames, pagination, setDeveloperDetails, developer }) => {
+const Home: React.FC<IProps> = ({ games, listGames, pagination, setDeveloperDetails, developer }) => {
 	const nextPage = () => {
-		// if (developer.id !== '') {
-		// 	setDeveloperDetails({ id: '', description: '', headquarters: '', name: '', website: '' });
-		// }
 		listGames(pagination.nextPage);
 	};
 
 	const prevPage = () => {
-		// if (developer.id !== '') {
-		// 	setDeveloperDetails({ id: '', description: '', headquarters: '', name: '', website: '' });
-		// }
 		listGames(pagination.prevPage);
 	};
 
@@ -37,26 +33,16 @@ const Home: React.FC<IProps> = ({ games, addGame, loading, listGames, pagination
 			<Grid.Column width={6}>
 				<GameSearch />
 				<DeveloperDetails developer={developer} />
-				{pagination.prevPage && (
-					<Button animated floated='left' color='red' onClick={prevPage}>
-						<Button.Content visible>Prev. Page</Button.Content>
-						<Button.Content hidden>
-							<Icon name='arrow left' />
-						</Button.Content>
-					</Button>
-				)}
-				{pagination.nextPage && (
-					<Button animated floated='right' color='blue' onClick={nextPage}>
-						<Button.Content visible>Next Page</Button.Content>
-						<Button.Content hidden>
-							<Icon name='arrow right' />
-						</Button.Content>
-					</Button>
-				)}
+				<Pagination pagination={pagination} prevPage={prevPage} nextPage={nextPage} />
 			</Grid.Column>
 			<Grid.Column width={10}>
 				<Fragment>
-					<Games setDeveloperDetails={setDeveloperDetails} games={games} />
+					<Games
+						games={games}
+						renderItem={(game, index) => (
+							<GameItem key={index} game={game} setDeveloperDetails={setDeveloperDetails} />
+						)}
+					/>
 				</Fragment>
 			</Grid.Column>
 		</Grid>

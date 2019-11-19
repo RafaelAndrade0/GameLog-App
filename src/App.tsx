@@ -20,6 +20,16 @@ const App: React.FC = () => {
 	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };
 
 	const [ games, setGames ] = useState<IGame[]>([]);
+	const [ game, setGame ] = useState<IGame>({
+		genre: '',
+		description: '',
+		developer: [],
+		initialrelease: '',
+		plataform: '',
+		title: '',
+		id: '',
+		photo: ''
+	});
 	const [ pagination, setPagination ] = useState<IPagination>({ baseUrl: '', page: 1 });
 	const [ loading, setLoading ] = useState<boolean>(false);
 	const [ developer, setDeveloper ] = useState<IDeveloper>(initialDeveloper);

@@ -6,7 +6,6 @@ import { IDeveloper } from '../../models/developer';
 
 interface Iprops {
 	game: IGame;
-	// developer: IDeveloper;
 	setDeveloperDetails: (developer: IDeveloper) => void;
 }
 

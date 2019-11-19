@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Form, Button, Segment, Header, Message, Image } from 'semantic-ui-react';
+import { Grid, Form, Button, Segment, Header, Message } from 'semantic-ui-react';
 
 const LoginComponent: React.FC = () => {
 	return (
