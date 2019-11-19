@@ -32,7 +32,7 @@ const GameForm: React.FC<IProps> = ({ addGame, loading }) => {
 		genre: '',
 		photo: 'no-photo.png',
 		initialrelease: '2020-10-19',
-		plataform: '',
+		plataform: [],
 		developer: []
 	});
 

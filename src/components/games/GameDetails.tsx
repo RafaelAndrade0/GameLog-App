@@ -6,6 +6,7 @@ import { IGame } from '../../models/game';
 import { IResult } from '../../models/result';
 import { Link } from 'react-router-dom';
 import ReviewGame from '../reviews/GameReview';
+import LoadingComponent from '../layout/LoadingComponent';
 
 interface Iprops {
 	id: string;
@@ -21,16 +22,26 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 		description: '',
 		developer: [],
 		initialrelease: '',
-		plataform: '',
+		plataform: [],
 		title: '',
 		id: '',
 		photo: ''
 	});
 
+	const [ loadingGame, setLoadingGame ] = useState<boolean>(true);
+
 	const getGame = async () => {
 		const result: IResult<IGame> = await GamesApi.getGame(match.params.id);
 		setSingleGame(result.data);
+		setLoadingGame(false);
+		// setTimeout(() => {
+		// 	setLoadingGame(false);
+		// }, 1500);
 	};
+
+	if (loadingGame) {
+		return <LoadingComponent />;
+	}
 
 	return (
 		<Fragment>
@@ -56,7 +67,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 							<Item.Header as='h2'>{singleGame.title}</Item.Header>
 							<Item.Description>{singleGame.description}</Item.Description>
 							<Item.Extra>
-								<Label>{singleGame.plataform}</Label>
+								{singleGame.plataform.map((plataform, index) => <Label key={index}>{plataform}</Label>)}
 							</Item.Extra>
 						</Item.Content>
 					</Item>

@@ -7,7 +7,7 @@ interface IProps {
 
 const GameReview: React.FC<IProps> = ({ title }) => {
 	return (
-		<Segment>
+		<Segment color='orange'>
 			<Header as='h2'>{title} Reviews</Header>
 			<Divider />
 			<Comment.Group>
@@ -67,7 +67,7 @@ const GameReview: React.FC<IProps> = ({ title }) => {
 			</Comment.Group>
 
 			<Divider />
-			<Pagination defaultActivePage={1} totalPages={10} />
+			<Pagination defaultActivePage={1} totalPages={5} />
 		</Segment>
 	);
 };

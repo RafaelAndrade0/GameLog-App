@@ -5,7 +5,7 @@ export interface IGame {
 	title: string;
 	description: string;
 	genre: string;
-	plataform: string;
+	plataform: string[];
 	photo?: string;
 	developer: IDeveloper[];
 	initialrelease: string;

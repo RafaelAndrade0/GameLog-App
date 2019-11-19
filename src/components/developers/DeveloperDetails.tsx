@@ -20,7 +20,7 @@ const DeveloperDetails: React.FC<Iprops> = ({ developer }) => {
 						<Item.Content>
 							<Item.Header as='h2'>{developer.name}</Item.Header>
 							<Item.Description>{developer.description}</Item.Description>
-							<Item.Extra style={{ 'margin-top': '1em' }}>
+							<Item.Extra style={{ marginTop: '1em' }}>
 								<Label>{developer.headquarters}</Label>
 							</Item.Extra>
 						</Item.Content>
