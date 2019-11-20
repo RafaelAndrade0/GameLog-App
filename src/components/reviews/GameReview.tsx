@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Header, Divider, Comment, Icon, Pagination } from 'semantic-ui-react';
+import { Segment, Header, Divider, Comment, Icon, Pagination, Grid, Container } from 'semantic-ui-react';
 
 interface IProps {
 	title: string;
@@ -67,7 +67,9 @@ const GameReview: React.FC<IProps> = ({ title }) => {
 			</Comment.Group>
 
 			<Divider />
-			<Pagination defaultActivePage={1} totalPages={5} />
+			<Container fluid>
+				<Pagination defaultActivePage={1} firstItem={null} lastItem={null} pointing secondary totalPages={3} />
+			</Container>
 		</Segment>
 	);
 };

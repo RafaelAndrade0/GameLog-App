@@ -19,7 +19,7 @@ interface IProps {
 	setDeveloperDetails: (developer: IDeveloper) => void;
 }
 
-const Home: React.FC<IProps> = ({ games, listGames, pagination, setDeveloperDetails, developer }) => {
+const Home: React.FC<IProps> = ({ games, listGames, pagination, setDeveloperDetails, developer, loading }) => {
 	const nextPage = () => {
 		listGames(pagination.nextPage);
 	};
@@ -38,6 +38,7 @@ const Home: React.FC<IProps> = ({ games, listGames, pagination, setDeveloperDeta
 			<Grid.Column width={10}>
 				<Fragment>
 					<Games
+						loading={loading}
 						games={games}
 						renderItem={(game, index) => (
 							<GameItem key={index} game={game} setDeveloperDetails={setDeveloperDetails} />

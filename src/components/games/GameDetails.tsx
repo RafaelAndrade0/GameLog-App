@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Segment, Item, Label, Container, Button, Icon } from 'semantic-ui-react';
+import { Segment, Item, Label, Container, Button, Icon, Transition } from 'semantic-ui-react';
 import GamesApi from '../../api/agent';
 import { IGame } from '../../models/game';
 import { IResult } from '../../models/result';
@@ -33,14 +33,14 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 	const getGame = async () => {
 		const result: IResult<IGame> = await GamesApi.getGame(match.params.id);
 		setSingleGame(result.data);
-		setLoadingGame(false);
-		// setTimeout(() => {
-		// 	setLoadingGame(false);
-		// }, 1500);
+		// setLoadingGame(false);
+		setTimeout(() => {
+			setLoadingGame(false);
+		}, 1500);
 	};
 
 	if (loadingGame) {
-		return <LoadingComponent />;
+		return <LoadingComponent activeDimmer={true} inverted={false} text='Loading Details' />;
 	}
 
 	return (
@@ -53,6 +53,13 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 					</Button.Content>
 				</Button>
 			</Link>
+
+			<Button animated='vertical' floated='right' color='red'>
+				<Button.Content visible>Add Review</Button.Content>
+				<Button.Content hidden>
+					<Icon name='fire' />
+				</Button.Content>
+			</Button>
 
 			<Segment clearing>
 				<Container>

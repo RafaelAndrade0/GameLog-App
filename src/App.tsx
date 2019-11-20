@@ -21,7 +21,7 @@ const App: React.FC = () => {
 
 	const [ games, setGames ] = useState<IGame[]>([]);
 	const [ pagination, setPagination ] = useState<IPagination>({ baseUrl: '', page: 1 });
-	const [ loading, setLoading ] = useState<boolean>(false);
+	const [ loading, setLoading ] = useState<boolean>(true);
 	const [ developer, setDeveloper ] = useState<IDeveloper>(initialDeveloper);
 
 	useEffect(() => {
@@ -29,9 +29,14 @@ const App: React.FC = () => {
 	}, []);
 
 	const listGames = async (pageNumber: string | undefined | number) => {
+		setLoading(true);
 		const result: IResult<IGame[]> = await GamesApi.list(pageNumber);
 		setGames(result.data);
 		setPagination(result.pagination);
+		// setLoading(false);
+		setTimeout(() => {
+			setLoading(false);
+		}, 1500);
 	};
 
 	const handleAddGame = async (game: IGame) => {
