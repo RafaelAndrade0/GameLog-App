@@ -27,6 +27,7 @@ const GameForm: React.FC<IProps> = ({ addGame, loading }) => {
 	];
 
 	const [ game, setGame ] = useState<IGame>({
+		id: '',
 		description: '',
 		title: '',
 		genre: '',

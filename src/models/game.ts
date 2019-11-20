@@ -1,7 +1,7 @@
 import { IDeveloper } from './developer';
 
 export interface IGame {
-	id?: string;
+	id: string;
 	title: string;
 	description: string;
 	genre: string;

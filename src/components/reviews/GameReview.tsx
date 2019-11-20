@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Header, Divider, Comment, Icon, Pagination, Grid, Container } from 'semantic-ui-react';
+import { Segment, Header, Divider, Comment, Icon, Pagination, Container } from 'semantic-ui-react';
 
 interface IProps {
 	title: string;
