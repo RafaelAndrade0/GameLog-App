@@ -102,7 +102,10 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 				userId=''
 			/>
 
-			<Segment clearing>
+			<Segment clearing piled>
+				<Label color='red' ribbon>
+					About The Game
+				</Label>
 				<Container>
 					<Grid columns={2} stackable>
 						<Grid.Column width={14}>
