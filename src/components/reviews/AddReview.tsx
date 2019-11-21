@@ -2,6 +2,7 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import { Modal, Button, Form, Input, Grid, Header } from 'semantic-ui-react';
 import { IResult } from '../../models/result';
 import { IReview } from '../../models/review';
+import { type } from 'os';
 
 interface IProps {
 	title: string;
@@ -12,7 +13,12 @@ interface IProps {
 }
 
 const AddReview: React.FC<IProps> = ({ open, handlecloseModal, title, gameId, userId }) => {
-	const [ review, setReview ] = useState<IReview>({ game: gameId, score: 0, text: '', user: '' });
+	const [ review, setReview ] = useState<IReview>({
+		game: gameId,
+		score: 0,
+		text: '',
+		user: { name: '', role: '', createAt: '', email: '' }
+	});
 
 	const handleFormSubmit = () => {
 		console.log(review);

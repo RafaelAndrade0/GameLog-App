@@ -37,7 +37,8 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 		plataform: [],
 		title: '',
 		id: '',
-		photo: ''
+		photo: '',
+		reviews: []
 	});
 
 	const [ loadingGame, setLoadingGame ] = useState<boolean>(true);
@@ -85,7 +86,8 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 							bordered
 							size='small'
 							floated='left'
-							src={`http://localhost:5000/uploads/${singleGame.photo}`}
+							src={`https://via.placeholder.com/200`}
+							// src={`http://localhost:5000/uploads/${singleGame.photo}`}
 						/>
 						<Item.Content>
 							<Item.Header as='h2'>{singleGame.title}</Item.Header>
@@ -98,7 +100,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 				</Container>
 			</Segment>
 
-			<ReviewGame title={singleGame.title} />
+			<ReviewGame title={singleGame.title} gameId={singleGame.id} />
 		</Fragment>
 	);
 };

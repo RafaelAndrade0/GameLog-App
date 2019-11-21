@@ -1,75 +1,65 @@
-import React from 'react';
-import { Segment, Header, Divider, Comment, Icon, Pagination, Container } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Segment, Header, Divider, Comment, Icon, Pagination, Container, Message } from 'semantic-ui-react';
+import { IReview } from '../../models/review';
+import { IResult } from '../../models/result';
+import GamesApi from '../../api/agent';
 
 interface IProps {
 	title: string;
+	gameId: string;
 }
 
-const GameReview: React.FC<IProps> = ({ title }) => {
+const GameReview: React.FC<IProps> = ({ title, gameId }) => {
+	const [ reviews, setReviews ] = useState<IReview[]>([]);
+
+	useEffect(() => {
+		const getReviews = async () => {
+			const _reviews: IResult<IReview[]> = await GamesApi.getReviews(gameId);
+			setReviews(_reviews.data);
+		};
+		getReviews();
+	}, []);
+
+	if (reviews.length === 0) {
+		return (
+			<Container>
+				<Message
+					negative
+					icon='fire'
+					header='No Reviews... :('
+					content={`There is no reviews for ${title}, be the first one to review it!`}
+				/>
+			</Container>
+		);
+	}
+
 	return (
 		<Segment color='orange'>
 			<Header as='h2'>{title} Reviews</Header>
 			<Divider />
+
 			<Comment.Group>
-				<Comment>
-					<Comment.Avatar as='a' src='https://via.placeholder.com/200' />
-					<Comment.Content>
-						<Comment.Author>Stewie Smith</Comment.Author>
-						<Comment.Metadata>
-							<div>2 days ago</div>
-							<div>
-								<Icon name='star' />5 Faves
-							</div>
-						</Comment.Metadata>
-						<Comment.Text>
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad alias saepe omnis,
-							exercitationem placeat, mollitia tempora aperiam, quae odit molestiae repellendus excepturi
-							fugit itaque! Culpa reprehenderit magni modi magnam voluptate!
-						</Comment.Text>
-					</Comment.Content>
-				</Comment>
-
-				<Comment>
-					<Comment.Avatar as='a' src='https://via.placeholder.com/200' />
-					<Comment.Content>
-						<Comment.Author>John Doe</Comment.Author>
-						<Comment.Metadata>
-							<div>15 days ago</div>
-							<div>
-								<Icon name='star' />2 Faves
-							</div>
-						</Comment.Metadata>
-						<Comment.Text>
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad alias saepe omnis,
-							exercitationem placeat, mollitia tempora aperiam, quae odit molestiae repellendus excepturi
-							fugit itaque! Culpa reprehenderit magni modi magnam voluptate!
-						</Comment.Text>
-					</Comment.Content>
-				</Comment>
-
-				<Comment>
-					<Comment.Avatar as='a' src='https://via.placeholder.com/200' />
-					<Comment.Content>
-						<Comment.Author>Makise Kurisu</Comment.Author>
-						<Comment.Metadata>
-							<div>25 days ago</div>
-							<div>
-								<Icon name='star' />1 Faves
-							</div>
-						</Comment.Metadata>
-						<Comment.Text>
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad alias saepe omnis,
-							exercitationem placeat, mollitia tempora aperiam, quae odit molestiae repellendus excepturi
-							fugit itaque! Culpa reprehenderit magni modi magnam voluptate!
-						</Comment.Text>
-					</Comment.Content>
-				</Comment>
+				{reviews.map((review, index) => (
+					<Comment key={index}>
+						<Comment.Avatar as='a' src='https://via.placeholder.com/200' />
+						<Comment.Content>
+							<Comment.Author>{review.user.name}</Comment.Author>
+							<Comment.Metadata>
+								<div>2 days ago</div>
+								<div>
+									<Icon name='star' />Score: {review.score}
+								</div>
+							</Comment.Metadata>
+							<Comment.Text>{review.text}</Comment.Text>
+						</Comment.Content>
+					</Comment>
+				))}
 			</Comment.Group>
 
-			<Divider />
+			{/* <Divider />
 			<Container fluid>
 				<Pagination defaultActivePage={1} firstItem={null} lastItem={null} pointing secondary totalPages={3} />
-			</Container>
+			</Container> */}
 		</Segment>
 	);
 };

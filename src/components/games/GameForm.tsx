@@ -34,7 +34,8 @@ const GameForm: React.FC<IProps> = ({ addGame, loading }) => {
 		photo: 'no-photo.png',
 		initialrelease: '2020-10-19',
 		plataform: [],
-		developer: []
+		developer: [],
+		reviews: []
 	});
 
 	const handleInputChange = (event: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

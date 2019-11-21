@@ -1,4 +1,5 @@
 import { IDeveloper } from './developer';
+import { IReview } from './review';
 
 export interface IGame {
 	id: string;
@@ -9,4 +10,5 @@ export interface IGame {
 	photo?: string;
 	developer: IDeveloper[];
 	initialrelease: string;
+	reviews: IReview[];
 }

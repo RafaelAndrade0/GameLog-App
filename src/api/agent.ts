@@ -15,7 +15,8 @@ const requests = {
 const GamesApi = {
 	list: (pageNumber: string | undefined | number) => requests.get('games', { params: { page: pageNumber } }),
 	create: (game: IGame) => requests.post('/games', game),
-	getGame: (id: string) => requests.get(`games/${id}`)
+	getGame: (id: string) => requests.get(`games/${id}`),
+	getReviews: (id: string) => requests.get(`games/${id}/reviews`)
 };
 
 export default GamesApi;
