@@ -11,4 +11,5 @@ export interface IGame {
 	developer: IDeveloper[];
 	initialrelease: string;
 	reviews: IReview[];
+	averageScore: number;
 }

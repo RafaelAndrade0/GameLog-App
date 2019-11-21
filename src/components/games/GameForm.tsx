@@ -35,7 +35,8 @@ const GameForm: React.FC<IProps> = ({ addGame, loading }) => {
 		initialrelease: '2020-10-19',
 		plataform: [],
 		developer: [],
-		reviews: []
+		reviews: [],
+		averageScore: 0
 	});
 
 	const handleInputChange = (event: FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
