@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import { IGame } from '../models/game';
+import { IReview } from '../models/review';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 
@@ -16,7 +17,8 @@ const GamesApi = {
 	list: (pageNumber: string | undefined | number) => requests.get('games', { params: { page: pageNumber } }),
 	create: (game: IGame) => requests.post('/games', game),
 	getGame: (id: string) => requests.get(`games/${id}`),
-	getReviews: (id: string) => requests.get(`games/${id}/reviews`)
+	getReviews: (id: string) => requests.get(`games/${id}/reviews`),
+	createReview: (review: IReview) => requests.post('reviews', review)
 };
 
 export default GamesApi;

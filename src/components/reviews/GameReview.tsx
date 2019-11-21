@@ -3,6 +3,7 @@ import { Segment, Header, Divider, Comment, Icon, Pagination, Container, Message
 import { IReview } from '../../models/review';
 import { IResult } from '../../models/result';
 import GamesApi from '../../api/agent';
+import { IUser } from '../../models/user';
 
 interface IProps {
 	title: string;
@@ -43,7 +44,7 @@ const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 					<Comment key={index}>
 						<Comment.Avatar as='a' src='https://via.placeholder.com/200' />
 						<Comment.Content>
-							<Comment.Author>{review.user.name}</Comment.Author>
+							<Comment.Author>{(review.user as IUser).name}</Comment.Author>
 							<Comment.Metadata>
 								<div>2 days ago</div>
 								<div>

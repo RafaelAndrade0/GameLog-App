@@ -3,6 +3,7 @@ import { Modal, Button, Form, Input, Grid, Header } from 'semantic-ui-react';
 import { IResult } from '../../models/result';
 import { IReview } from '../../models/review';
 import { type } from 'os';
+import GamesApi from '../../api/agent';
 
 interface IProps {
 	title: string;
@@ -17,10 +18,11 @@ const AddReview: React.FC<IProps> = ({ open, handlecloseModal, title, gameId, us
 		game: gameId,
 		score: 0,
 		text: '',
-		user: { name: '', role: '', createAt: '', email: '' }
+		user: '5dc41a1582e6a234302d3e14'
 	});
 
-	const handleFormSubmit = () => {
+	const handleFormSubmit = async () => {
+		// const result = await GamesApi.createReview(review);
 		console.log(review);
 	};
 

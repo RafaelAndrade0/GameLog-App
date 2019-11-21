@@ -4,5 +4,5 @@ export interface IReview {
 	text: string;
 	score: number;
 	game: string;
-	user: IUser;
+	user: IUser | string;
 }
