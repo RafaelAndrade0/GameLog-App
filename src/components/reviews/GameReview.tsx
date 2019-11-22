@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Segment, Header, Divider, Comment, Icon, Container, Message } from 'semantic-ui-react';
-import { IReview } from '../../models/review';
-import { IResult } from '../../models/result';
-import GamesApi from '../../api/agent';
+import React, { useEffect, useContext } from 'react';
+import { Segment, Header, Divider, Comment, Icon, Container, Message, Dimmer, Loader, Image } from 'semantic-ui-react';
 import { IUser } from '../../models/user';
+
+import ReviewStore from '../../stores/reviewStore';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
 	title: string;
@@ -11,18 +11,27 @@ interface IProps {
 }
 
 const GameReview: React.FC<IProps> = ({ title, gameId }) => {
-	const [ reviews, setReviews ] = useState<IReview[]>([]);
+	const reviewStore = useContext(ReviewStore);
+	const { loadReviews, loadingReviews, reviews } = reviewStore;
 
 	useEffect(
 		() => {
-			const getReviews = async () => {
-				const _reviews: IResult<IReview[]> = await GamesApi.getReviews(gameId);
-				setReviews(_reviews.data);
-			};
-			getReviews();
+			loadReviews(gameId);
 		},
-		[ gameId ]
+		[ loadReviews, gameId ]
 	);
+
+	if (loadingReviews) {
+		return (
+			<Segment>
+				<Dimmer active>
+					<Loader>Loading Reviews...</Loader>
+				</Dimmer>
+
+				<Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+			</Segment>
+		);
+	}
 
 	if (reviews.length === 0) {
 		return (
@@ -68,4 +77,4 @@ const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 	);
 };
 
-export default GameReview;
+export default observer(GameReview);
