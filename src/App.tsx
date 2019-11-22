@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
@@ -7,46 +7,28 @@ import About from './components/pages/About';
 import Home from './components/pages/Home';
 import Navbar from './components/layout/Navbar';
 
-import { IGame } from './models/game';
-import { IResult } from './models/result';
-import GamesApi from './api/agent';
 import GameDetails from './components/games/GameDetails';
-import { IPagination } from './models/pagination';
 import { IDeveloper } from './models/developer';
 import LoginComponent from './components/auth/LoginComponent';
 import { ScrollToTop } from './utils/scrollToTop';
 
-const App: React.FC = () => {
-	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };
+import GameStore from './stores/gameStore';
 
-	const [ games, setGames ] = useState<IGame[]>([]);
-	const [ pagination, setPagination ] = useState<IPagination>({ baseUrl: '', page: 1 });
-	const [ loading, setLoading ] = useState<boolean>(true);
+import { observer } from 'mobx-react-lite';
+
+const App: React.FC = () => {
+	const gameStore = useContext(GameStore);
+	const { games } = gameStore;
+
+	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };
 	const [ developer, setDeveloper ] = useState<IDeveloper>(initialDeveloper);
 
-	useEffect(() => {
-		listGames(1);
-	}, []);
-
-	const listGames = async (pageNumber: string | undefined | number) => {
-		setLoading(true);
-		const result: IResult<IGame[]> = await GamesApi.list(pageNumber);
-		setGames(result.data);
-		setPagination(result.pagination);
-		// setLoading(false);
-		setTimeout(() => {
-			setLoading(false);
-		}, 1500);
-	};
-
-	const handleAddGame = async (game: IGame) => {
-		setLoading(true);
-		const newGame: IResult<IGame> = await GamesApi.create(game);
-		setGames([ ...games, newGame.data ]);
-		setTimeout(() => {
-			setLoading(false);
-		}, 2000);
-	};
+	useEffect(
+		() => {
+			gameStore.loadGames(1);
+		},
+		[ gameStore ]
+	);
 
 	const setDeveloperDetails = (developer: IDeveloper) => {
 		setDeveloper(developer);
@@ -62,15 +44,7 @@ const App: React.FC = () => {
 						<LoginComponent />
 					</Route>
 					<Route exact path='/'>
-						<Home
-							pagination={pagination}
-							listGames={listGames}
-							addGame={handleAddGame}
-							games={games}
-							loading={loading}
-							developer={developer}
-							setDeveloperDetails={setDeveloperDetails}
-						/>
+						<Home games={games} developer={developer} setDeveloperDetails={setDeveloperDetails} />
 					</Route>
 					<Route exact path='/about'>
 						<About />
@@ -82,4 +56,4 @@ const App: React.FC = () => {
 	);
 };
 
-export default App;
+export default observer(App);

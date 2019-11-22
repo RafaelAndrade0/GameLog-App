@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Segment, Header, Divider, Comment, Icon, Pagination, Container, Message } from 'semantic-ui-react';
+import { Segment, Header, Divider, Comment, Icon, Container, Message } from 'semantic-ui-react';
 import { IReview } from '../../models/review';
 import { IResult } from '../../models/result';
 import GamesApi from '../../api/agent';
@@ -13,13 +13,16 @@ interface IProps {
 const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 	const [ reviews, setReviews ] = useState<IReview[]>([]);
 
-	useEffect(() => {
-		const getReviews = async () => {
-			const _reviews: IResult<IReview[]> = await GamesApi.getReviews(gameId);
-			setReviews(_reviews.data);
-		};
-		getReviews();
-	}, []);
+	useEffect(
+		() => {
+			const getReviews = async () => {
+				const _reviews: IResult<IReview[]> = await GamesApi.getReviews(gameId);
+				setReviews(_reviews.data);
+			};
+			getReviews();
+		},
+		[ gameId ]
+	);
 
 	if (reviews.length === 0) {
 		return (

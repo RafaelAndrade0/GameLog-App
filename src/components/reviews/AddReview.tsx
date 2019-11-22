@@ -1,9 +1,6 @@
-import React, { FormEvent, useState, useEffect } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Modal, Button, Form, Input, Grid, Header } from 'semantic-ui-react';
-import { IResult } from '../../models/result';
 import { IReview } from '../../models/review';
-import { type } from 'os';
-import GamesApi from '../../api/agent';
 
 interface IProps {
 	title: string;
@@ -13,7 +10,7 @@ interface IProps {
 	handlecloseModal: (state: boolean) => void;
 }
 
-const AddReview: React.FC<IProps> = ({ open, handlecloseModal, title, gameId, userId }) => {
+const AddReview: React.FC<IProps> = ({ open, handlecloseModal, title, gameId }) => {
 	const [ review, setReview ] = useState<IReview>({
 		game: gameId,
 		score: 0,

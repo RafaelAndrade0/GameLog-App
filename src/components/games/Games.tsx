@@ -1,16 +1,20 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Card } from 'semantic-ui-react';
 import { IGame } from '../../models/game';
 import LoadingComponent from '../layout/LoadingComponent';
 
+import GameStore from '../../stores/gameStore';
+import { observer } from 'mobx-react-lite';
+
 interface Iprops {
 	games: IGame[];
 	renderItem: (game: IGame, index: number) => JSX.Element;
-	loading: boolean;
 }
 
-const Games: React.FC<Iprops> = ({ games, renderItem, loading }) => {
-	if (loading) {
+const Games: React.FC<Iprops> = ({ games, renderItem }) => {
+	const gameStore = useContext(GameStore);
+
+	if (gameStore.loadingInitial) {
 		return <LoadingComponent activeDimmer={true} text='Loading Games' inverted={true} />;
 	}
 
@@ -23,4 +27,4 @@ const Games: React.FC<Iprops> = ({ games, renderItem, loading }) => {
 	);
 };
 
-export default Games;
+export default observer(Games);

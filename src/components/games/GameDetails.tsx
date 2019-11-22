@@ -1,60 +1,29 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
-import {
-	Segment,
-	Item,
-	Label,
-	Container,
-	Button,
-	Icon,
-	Statistic,
-	Grid,
-	StrictStatisticProps
-} from 'semantic-ui-react';
-import GamesApi from '../../api/agent';
-import { IGame } from '../../models/game';
-import { IResult } from '../../models/result';
+import { Segment, Item, Label, Container, Button, Icon, Statistic, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import ReviewGame from '../reviews/GameReview';
 import LoadingComponent from '../layout/LoadingComponent';
 import AddReview from '../reviews/AddReview';
-import GameReview from '../reviews/GameReview';
 import { SemanticCOLORS } from 'semantic-ui-react/dist/commonjs/generic';
+
+import GameStore from '../../stores/gameStore';
+import { observer } from 'mobx-react-lite';
+import GameReview from '../reviews/GameReview';
 
 interface Iprops {
 	id: string;
 }
 
 const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
+	const gameStore = useContext(GameStore);
+	const { selectedGame, loadingInitial, loadGame } = gameStore;
+
 	useEffect(
 		() => {
-			const getGame = async () => {
-				const result: IResult<IGame> = await GamesApi.getGame(match.params.id);
-				setSingleGame(result.data);
-				// setLoadingGame(false);
-				setTimeout(() => {
-					setLoadingGame(false);
-				}, 1500);
-			};
-			getGame();
+			loadGame(match.params.id);
 		},
-		[ match.params.id ]
+		[ loadGame, match.params.id ]
 	);
-
-	const [ singleGame, setSingleGame ] = useState<IGame>({
-		genre: '',
-		description: '',
-		developer: [],
-		initialrelease: '',
-		plataform: [],
-		title: '',
-		id: '',
-		photo: '',
-		reviews: [],
-		averageScore: 0
-	});
-
-	const [ loadingGame, setLoadingGame ] = useState<boolean>(true);
 
 	const [ openModal, setOpenModal ] = useState<boolean>(false);
 
@@ -72,7 +41,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 		}
 	};
 
-	if (loadingGame) {
+	if (loadingInitial || !selectedGame) {
 		return <LoadingComponent activeDimmer={true} inverted={false} text='Loading Details' />;
 	}
 
@@ -95,15 +64,15 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 			</Button>
 
 			<AddReview
-				title={singleGame.title}
+				title={selectedGame.title}
 				open={openModal}
 				handlecloseModal={handleModal}
-				gameId={singleGame.id}
+				gameId={selectedGame.id}
 				userId=''
 			/>
 
 			<Segment clearing piled>
-				<Label color='red' ribbon>
+				<Label color='blue' ribbon>
 					About The Game
 				</Label>
 				<Container>
@@ -118,10 +87,10 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 									// src={`http://localhost:5000/uploads/${singleGame.photo}`}
 								/>
 								<Item.Content>
-									<Item.Header as='h2'>{singleGame.title}</Item.Header>
-									<Item.Description>{singleGame.description}</Item.Description>
+									{/* <Item.Header as='h2'>{selectedGame!.title}</Item.Header> */}
+									<Item.Description>{selectedGame.description}</Item.Description>
 									<Item.Extra>
-										{singleGame.plataform.map((plataform, index) => (
+										{selectedGame.plataform.map((plataform, index) => (
 											<Label key={index}>{plataform}</Label>
 										))}
 									</Item.Extra>
@@ -129,10 +98,10 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 							</Item>
 						</Grid.Column>
 						<Grid.Column width={2}>
-							<Statistic color={handleScoreColor(singleGame.averageScore)} floated='right' size='tiny'>
+							<Statistic color={handleScoreColor(selectedGame.averageScore)} floated='right' size='tiny'>
 								<Statistic.Value>
 									<Icon name='star' />
-									{Math.round(singleGame.averageScore * 10) / 10}
+									{Math.round(selectedGame.averageScore * 10) / 10}
 								</Statistic.Value>
 								<Statistic.Label>User Score</Statistic.Label>
 							</Statistic>
@@ -141,9 +110,9 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 				</Container>
 			</Segment>
 
-			<GameReview title={singleGame.title} gameId={singleGame.id} />
+			<GameReview title={selectedGame.title} gameId={selectedGame.id} />
 		</Fragment>
 	);
 };
 
-export default GameDetails;
+export default observer(GameDetails);

@@ -1,31 +1,32 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Grid } from 'semantic-ui-react';
 import Games from '../games/Games';
 import { IGame } from '../../models/game';
-import { IPagination } from '../../models/pagination';
 import GameSearch from '../games/GameSearch';
 import DeveloperDetails from '../developers/DeveloperDetails';
 import { IDeveloper } from '../../models/developer';
 import GameItem from '../games/GameItem';
 import Pagination from '../layout/Pagination';
 
+import GameStore from '../../stores/gameStore';
+import { observer } from 'mobx-react-lite';
+
 interface IProps {
 	games: IGame[];
 	developer: IDeveloper;
-	pagination: IPagination;
-	loading: boolean;
-	addGame: (game: IGame) => void;
-	listGames: (page: string | undefined | number) => void;
 	setDeveloperDetails: (developer: IDeveloper) => void;
 }
 
-const Home: React.FC<IProps> = ({ games, listGames, pagination, setDeveloperDetails, developer, loading }) => {
+const Home: React.FC<IProps> = ({ games, setDeveloperDetails, developer }) => {
+	const gameStore = useContext(GameStore);
+	const { loadGames, pagination } = gameStore;
+
 	const nextPage = () => {
-		listGames(pagination.nextPage);
+		loadGames(pagination.nextPage);
 	};
 
 	const prevPage = () => {
-		listGames(pagination.prevPage);
+		loadGames(pagination.prevPage);
 	};
 
 	return (
@@ -38,7 +39,6 @@ const Home: React.FC<IProps> = ({ games, listGames, pagination, setDeveloperDeta
 			<Grid.Column width={10}>
 				<Fragment>
 					<Games
-						loading={loading}
 						games={games}
 						renderItem={(game, index) => (
 							<GameItem key={index} game={game} setDeveloperDetails={setDeveloperDetails} />
@@ -50,4 +50,4 @@ const Home: React.FC<IProps> = ({ games, listGames, pagination, setDeveloperDeta
 	);
 };
 
-export default Home;
+export default observer(Home);
