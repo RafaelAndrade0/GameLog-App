@@ -60,7 +60,8 @@ const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 							<Comment.Metadata>
 								<div>2 days ago</div>
 								<div>
-									<Icon name='star' />Score: {review.score}
+									<Icon name='star' />
+									Score: {review.score}
 								</div>
 							</Comment.Metadata>
 							<Comment.Text>{review.text}</Comment.Text>

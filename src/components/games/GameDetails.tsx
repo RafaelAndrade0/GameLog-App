@@ -16,13 +16,17 @@ interface Iprops {
 
 const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 	const gameStore = useContext(GameStore);
-	const { selectedGame, loadingInitial, loadGame } = gameStore;
+	const { selectedGame, loadingInitial, loadGame, clearSelectedGame } = gameStore;
 
 	useEffect(
 		() => {
 			loadGame(match.params.id);
+
+			return () => {
+				clearSelectedGame();
+			};
 		},
-		[ loadGame, match.params.id ]
+		[ loadGame, match.params.id, clearSelectedGame ]
 	);
 
 	const [ openModal, setOpenModal ] = useState<boolean>(false);

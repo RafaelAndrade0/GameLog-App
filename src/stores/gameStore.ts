@@ -10,7 +10,7 @@ configure({ enforceActions: 'always' });
 
 class GameStore {
 	@observable games: IGame[] = [];
-	@observable selectedGame: IGame | undefined;
+	@observable selectedGame: IGame | null = null;
 	@observable loadingInitial = false;
 	@observable pagination: IPagination = { baseUrl: '', page: 1, nextPage: 1, prevPage: 1 };
 
@@ -47,6 +47,11 @@ class GameStore {
 			});
 			console.log(error);
 		}
+	};
+
+	@action
+	clearSelectedGame = () => {
+		this.selectedGame = null;
 	};
 }
 
