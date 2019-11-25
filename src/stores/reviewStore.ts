@@ -3,6 +3,7 @@ import { createContext } from 'react';
 import { IReview } from '../models/review';
 import { IResult } from '../models/result';
 import GamesApi from '../api/agent';
+import { toast } from 'react-toastify';
 
 configure({ enforceActions: 'always' });
 
@@ -32,14 +33,18 @@ class ReviewStore {
 	createReview = async (review: IReview) => {
 		this.submitting = true;
 		try {
-			const newReview = await GamesApi.createReview(review);
-			runInAction('create game', () => {
+			const newReview: IResult<IReview> = await GamesApi.createReview(review);
+			runInAction('create review', () => {
+				// TODO: Create local map
+				this.reviews = [ ...this.reviews, newReview.data ];
 				this.submitting = false;
+				toast.success('🔥 Review Created With Success!');
 			});
 		} catch (error) {
-			runInAction('error create game', () => {
+			runInAction('error create review', () => {
 				this.submitting = false;
 			});
+			toast.error('❌ Error creating the review!');
 			console.log(error);
 		}
 	};

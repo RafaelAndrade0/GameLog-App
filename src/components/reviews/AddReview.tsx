@@ -1,5 +1,5 @@
 import React, { FormEvent, useState, useContext } from 'react';
-import { Modal, Button, Form, Input, Grid, Header, Message } from 'semantic-ui-react';
+import { Modal, Button, Form, Input, Grid, Header } from 'semantic-ui-react';
 import { IReview } from '../../models/review';
 
 import ReviewStore from '../../stores/reviewStore';
@@ -24,11 +24,9 @@ const AddReview: React.FC<IProps> = ({ open, handlecloseModal, title, gameId }) 
 	const reviewStore = useContext(ReviewStore);
 	const { createReview, submitting } = reviewStore;
 
-	const [ success, setSuccess ] = useState(false);
-
 	const handleFormSubmit = () => {
 		console.log(review);
-		createReview(review).then(() => setSuccess(true));
+		createReview(review);
 	};
 
 	const handleInputChange = (event: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,17 +39,9 @@ const AddReview: React.FC<IProps> = ({ open, handlecloseModal, title, gameId }) 
 	};
 
 	return (
-		<Modal as={Form} onSubmit={handleFormSubmit} open={open} dimmer='blurring'>
+		<Modal as={Form} onSubmit={handleFormSubmit} open={open}>
 			<Header icon='fire' color='red' content={`Add new review to ${title}`} as='h2' />
 			<Modal.Content>
-				<Message
-					hidden={!success}
-					positive
-					icon='hand peace'
-					header='Nice!'
-					content='Review added with success!'
-				/>
-
 				<Form.TextArea
 					onChange={handleInputChange}
 					placeholder={`Tell us about ${title}`}

@@ -15,6 +15,8 @@ import { ScrollToTop } from './utils/scrollToTop';
 import GameStore from './stores/gameStore';
 
 import { observer } from 'mobx-react-lite';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
 	const gameStore = useContext(GameStore);
@@ -36,6 +38,7 @@ const App: React.FC = () => {
 
 	return (
 		<Router>
+			<ToastContainer />
 			<ScrollToTop />
 			<Route exact path='/' red>
 				<LoginComponent />
