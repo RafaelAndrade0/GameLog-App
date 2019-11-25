@@ -8,6 +8,7 @@ configure({ enforceActions: 'always' });
 
 class ReviewStore {
 	@observable reviews: IReview[] = [];
+	@observable submitting = false;
 	@observable loadingReviews = false;
 
 	@action
@@ -24,6 +25,22 @@ class ReviewStore {
 				this.loadingReviews = false;
 				console.log(error);
 			});
+		}
+	};
+
+	@action
+	createReview = async (review: IReview) => {
+		this.submitting = true;
+		try {
+			const newReview = await GamesApi.createReview(review);
+			runInAction('create game', () => {
+				this.submitting = false;
+			});
+		} catch (error) {
+			runInAction('error create game', () => {
+				this.submitting = false;
+			});
+			console.log(error);
 		}
 	};
 }

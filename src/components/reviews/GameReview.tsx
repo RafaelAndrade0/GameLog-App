@@ -1,5 +1,17 @@
-import React, { useEffect, useContext } from 'react';
-import { Segment, Header, Divider, Comment, Icon, Container, Message, Placeholder } from 'semantic-ui-react';
+import React, { useEffect, useContext, useState } from 'react';
+import {
+	Segment,
+	Header,
+	Divider,
+	Comment,
+	Icon,
+	Container,
+	Message,
+	Placeholder,
+	Pagination,
+	Grid,
+	Button
+} from 'semantic-ui-react';
 import { IUser } from '../../models/user';
 
 import ReviewStore from '../../stores/reviewStore';
@@ -78,10 +90,35 @@ const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 				))}
 			</Comment.Group>
 
-			{/* <Divider />
-			<Container fluid>
-				<Pagination defaultActivePage={1} firstItem={null} lastItem={null} pointing secondary totalPages={3} />
-			</Container> */}
+			<Divider />
+
+			<Grid centered>
+				<Grid.Row centered columns={3} only='computer'>
+					<Grid.Column width={3} />
+					<Grid.Column style={{ textAlign: 'center' }} width={10}>
+						<Pagination defaultActivePage={1} totalPages={5} />
+					</Grid.Column>
+					<Grid.Column width={3} />
+				</Grid.Row>
+
+				<Grid.Row centered columns={3} only='mobile'>
+					<Grid.Column>
+						<Button color='red' fluid>
+							Previous Page
+						</Button>
+					</Grid.Column>
+					<Grid.Column>
+						<Button color='instagram' fluid>
+							GoTo Page
+						</Button>
+					</Grid.Column>
+					<Grid.Column>
+						<Button color='blue' fluid>
+							Next Page
+						</Button>
+					</Grid.Column>
+				</Grid.Row>
+			</Grid>
 		</Segment>
 	);
 };

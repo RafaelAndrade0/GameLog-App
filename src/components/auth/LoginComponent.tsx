@@ -10,7 +10,17 @@ const LoginComponent: React.FC = () => {
 	};
 
 	return (
-		<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+		<Grid
+			textAlign='center'
+			style={{ height: '100vh' }}
+			// style={{
+			// 	height: '100vh',
+			// 	backgroundImage: 'url(images/bg2.png)',
+			// 	backgroundPosition: 'right bottom',
+			// 	backgroundRepeat: 'no-repeat'
+			// }}
+			verticalAlign='middle'
+		>
 			<Grid.Column style={{ maxWidth: 450 }}>
 				<Header as='h2' color='blue' textAlign='center'>
 					<Image src='images/icon.png' />
