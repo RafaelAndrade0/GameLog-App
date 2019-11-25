@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { IPagination } from '../../models/pagination';
 import { Button, Icon } from 'semantic-ui-react';
 
@@ -10,7 +10,7 @@ interface IProps {
 
 const Pagination: React.FC<IProps> = ({ pagination, prevPage, nextPage }) => {
 	return (
-		<div>
+		<Fragment>
 			{pagination.prevPage && (
 				<Button animated floated='left' color='red' onClick={prevPage}>
 					<Button.Content visible>Prev. Page</Button.Content>
@@ -27,7 +27,7 @@ const Pagination: React.FC<IProps> = ({ pagination, prevPage, nextPage }) => {
 					</Button.Content>
 				</Button>
 			)}
-		</div>
+		</Fragment>
 	);
 };
 

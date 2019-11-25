@@ -1,21 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
-import {
-	Segment,
-	Header,
-	Divider,
-	Comment,
-	Icon,
-	Container,
-	Message,
-	Placeholder,
-	Pagination,
-	Grid,
-	Button
-} from 'semantic-ui-react';
+import { Segment, Header, Divider, Comment, Icon, Container, Message, Placeholder } from 'semantic-ui-react';
 import { IUser } from '../../models/user';
 
 import ReviewStore from '../../stores/reviewStore';
 import { observer } from 'mobx-react-lite';
+import PaginationFull from '../layout/PaginationFull';
 
 interface IProps {
 	title: string;
@@ -25,6 +14,17 @@ interface IProps {
 const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 	const reviewStore = useContext(ReviewStore);
 	const { loadReviews, loadingReviews, reviews } = reviewStore;
+
+	const [ currentPage, setCurrentPage ] = useState<number>(1);
+	const [ reviewsPerPage ] = useState<number>(3);
+
+	// Get current posts
+	const indexOfLastPost = currentPage * reviewsPerPage;
+	const indexOfFirstPost = indexOfLastPost - reviewsPerPage;
+	const currentReviews = reviews.slice(indexOfFirstPost, indexOfLastPost);
+
+	// Change page
+	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
 	useEffect(
 		() => {
@@ -72,7 +72,7 @@ const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 			<Divider />
 
 			<Comment.Group>
-				{reviews.map((review, index) => (
+				{currentReviews.map((review, index) => (
 					<Comment key={index}>
 						<Comment.Avatar as='a' src='https://via.placeholder.com/200' />
 						<Comment.Content>
@@ -92,33 +92,9 @@ const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 
 			<Divider />
 
-			<Grid centered>
-				<Grid.Row centered columns={3} only='computer'>
-					<Grid.Column width={3} />
-					<Grid.Column style={{ textAlign: 'center' }} width={10}>
-						<Pagination defaultActivePage={1} totalPages={5} />
-					</Grid.Column>
-					<Grid.Column width={3} />
-				</Grid.Row>
-
-				<Grid.Row centered columns={3} only='mobile'>
-					<Grid.Column>
-						<Button color='red' fluid>
-							Previous Page
-						</Button>
-					</Grid.Column>
-					<Grid.Column>
-						<Button color='instagram' fluid>
-							GoTo Page
-						</Button>
-					</Grid.Column>
-					<Grid.Column>
-						<Button color='blue' fluid>
-							Next Page
-						</Button>
-					</Grid.Column>
-				</Grid.Row>
-			</Grid>
+			<div style={{ textAlign: 'center' }}>
+				<PaginationFull reviewsPerPage={reviewsPerPage} totalReviews={reviews.length} paginate={paginate} />
+			</div>
 		</Segment>
 	);
 };
