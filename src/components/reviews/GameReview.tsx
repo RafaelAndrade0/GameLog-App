@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Segment, Header, Divider, Comment, Icon, Container, Message, Dimmer, Loader, Image } from 'semantic-ui-react';
+import { Segment, Header, Divider, Comment, Icon, Container, Message, Placeholder } from 'semantic-ui-react';
 import { IUser } from '../../models/user';
 
 import ReviewStore from '../../stores/reviewStore';
@@ -23,12 +23,20 @@ const GameReview: React.FC<IProps> = ({ title, gameId }) => {
 
 	if (loadingReviews) {
 		return (
-			<Segment>
-				<Dimmer active>
-					<Loader>Loading Reviews...</Loader>
-				</Dimmer>
-
-				<Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+			<Segment color='orange'>
+				<Header as='h2'>{title} Reviews</Header>
+				<Divider />
+				<Placeholder>
+					<Placeholder.Header image>
+						<Placeholder.Line length='very short' />
+						<Placeholder.Line length='short' />
+					</Placeholder.Header>
+					<Placeholder.Paragraph>
+						<Placeholder.Line length='full' />
+						<Placeholder.Line length='full' />
+						<Placeholder.Line length='medium' />
+					</Placeholder.Paragraph>
+				</Placeholder>
 			</Segment>
 		);
 	}

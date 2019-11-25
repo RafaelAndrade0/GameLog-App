@@ -51,7 +51,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 
 	return (
 		<Fragment>
-			<Link to='/'>
+			<Link to='/home'>
 				<Button animated color='orange'>
 					<Button.Content visible>Go Back!</Button.Content>
 					<Button.Content hidden>
@@ -102,13 +102,19 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 							</Item>
 						</Grid.Column>
 						<Grid.Column width={2}>
-							<Statistic color={handleScoreColor(selectedGame.averageScore)} floated='right' size='tiny'>
-								<Statistic.Value>
-									<Icon name='star' />
-									{Math.round(selectedGame.averageScore * 10) / 10}
-								</Statistic.Value>
-								<Statistic.Label>User Score</Statistic.Label>
-							</Statistic>
+							{selectedGame.averageScore && (
+								<Statistic
+									color={handleScoreColor(selectedGame.averageScore)}
+									floated='right'
+									size='tiny'
+								>
+									<Statistic.Value>
+										<Icon name='star' />
+										{Math.round(selectedGame.averageScore * 10) / 10}
+									</Statistic.Value>
+									<Statistic.Label>User Score</Statistic.Label>
+								</Statistic>
+							)}
 						</Grid.Column>
 					</Grid>
 				</Container>

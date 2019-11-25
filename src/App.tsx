@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
@@ -37,21 +37,33 @@ const App: React.FC = () => {
 	return (
 		<Router>
 			<ScrollToTop />
-			<Navbar title='GameLog' />
-			<Container style={{ marginTop: '7em' }}>
-				<Switch>
-					<Route exact path='/login'>
-						<LoginComponent />
-					</Route>
-					<Route exact path='/'>
-						<Home games={games} developer={developer} setDeveloperDetails={setDeveloperDetails} />
-					</Route>
-					<Route exact path='/about'>
-						<About />
-					</Route>
-					<Route path='/games/:id' component={GameDetails} />
-				</Switch>
-			</Container>
+			<Route exact path='/' red>
+				<LoginComponent />
+			</Route>
+			<Route
+				exact
+				path={'/(.+)'}
+				render={() => (
+					<Fragment>
+						<Navbar title='GameLog' />
+						<Container style={{ marginTop: '7em' }}>
+							<Switch>
+								<Route exact path='/home'>
+									<Home
+										games={games}
+										developer={developer}
+										setDeveloperDetails={setDeveloperDetails}
+									/>
+								</Route>
+								<Route exact path='/about'>
+									<About />
+								</Route>
+								<Route path='/games/:id' component={GameDetails} />
+							</Switch>
+						</Container>
+					</Fragment>
+				)}
+			/>
 		</Router>
 	);
 };
