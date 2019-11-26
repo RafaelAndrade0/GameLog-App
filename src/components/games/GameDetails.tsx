@@ -6,17 +6,17 @@ import LoadingComponent from '../layout/LoadingComponent';
 import AddReview from '../reviews/AddReview';
 import { SemanticCOLORS } from 'semantic-ui-react/dist/commonjs/generic';
 
-import GameStore from '../../stores/gameStore';
 import { observer } from 'mobx-react-lite';
 import GameReview from '../reviews/GameReview';
+import { RootStoreContext } from '../../stores/rootStore';
 
 interface Iprops {
 	id: string;
 }
 
 const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
-	const gameStore = useContext(GameStore);
-	const { selectedGame, loadingInitial, loadGame, clearSelectedGame } = gameStore;
+	const rootStore = useContext(RootStoreContext);
+	const { selectedGame, loadingInitial, loadGame, clearSelectedGame } = rootStore.gameStore;
 
 	useEffect(
 		() => {

@@ -8,8 +8,8 @@ import { IDeveloper } from '../../models/developer';
 import GameItem from '../games/GameItem';
 import Pagination from '../layout/Pagination';
 
-import GameStore from '../../stores/gameStore';
 import { observer } from 'mobx-react-lite';
+import { RootStoreContext } from '../../stores/rootStore';
 
 interface IProps {
 	games: IGame[];
@@ -18,8 +18,8 @@ interface IProps {
 }
 
 const Home: React.FC<IProps> = ({ games, setDeveloperDetails, developer }) => {
-	const gameStore = useContext(GameStore);
-	const { loadGames, pagination } = gameStore;
+	const rootStore = useContext(RootStoreContext);
+	const { loadGames, pagination } = rootStore.gameStore;
 
 	const nextPage = () => {
 		loadGames(pagination.nextPage);

@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Form, Button, Segment, Header, Message, Image } from 'semantic-ui-react';
 import { useHistory } from 'react-router';
+import { observer } from 'mobx-react-lite';
+import { RootStoreContext } from '../../stores/rootStore';
 
 const LoginComponent: React.FC = () => {
 	const history = useHistory();
 
+	const rootStore = useContext(RootStoreContext);
+
+	const { login, user } = rootStore.userStore;
+
 	const onFormSubmit = () => {
-		history.push('/home');
+		// history.push('/home');
+		login({ email: 'rafael@gmail.com', password: '123456' });
 	};
 
 	return (
@@ -44,4 +51,4 @@ const LoginComponent: React.FC = () => {
 	);
 };
 
-export default LoginComponent;
+export default observer(LoginComponent);

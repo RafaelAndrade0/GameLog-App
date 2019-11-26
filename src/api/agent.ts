@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import { IGame } from '../models/game';
 import { IReview } from '../models/review';
+import { IUserFormValues, IUser, IUserResponse } from '../models/user';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 
@@ -16,7 +17,7 @@ const requests = {
 	delete: (url: string) => axios.delete(url).then(sleep(1000)).then(responseBody)
 };
 
-const GamesApi = {
+const Games = {
 	list: (pageNumber: string | undefined | number) => requests.get('games', { params: { page: pageNumber } }),
 	create: (game: IGame) => requests.post('/games', game),
 	getGame: (id: string) => requests.get(`games/${id}`),
@@ -24,4 +25,9 @@ const GamesApi = {
 	createReview: (review: IReview) => requests.post('reviews', review)
 };
 
-export default GamesApi;
+const User = {
+	login: (user: IUserFormValues): Promise<IUserResponse> => requests.post('/auth/login', user),
+	register: (user: IUser): Promise<IUserResponse> => requests.post('/auth/register', user)
+};
+
+export default { Games, User };

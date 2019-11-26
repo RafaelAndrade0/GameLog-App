@@ -2,9 +2,8 @@ import React, { Fragment, useContext } from 'react';
 import { Card } from 'semantic-ui-react';
 import { IGame } from '../../models/game';
 import LoadingComponent from '../layout/LoadingComponent';
-
-import GameStore from '../../stores/gameStore';
 import { observer } from 'mobx-react-lite';
+import { RootStoreContext } from '../../stores/rootStore';
 
 interface Iprops {
 	games: IGame[];
@@ -12,7 +11,8 @@ interface Iprops {
 }
 
 const Games: React.FC<Iprops> = ({ games, renderItem }) => {
-	const gameStore = useContext(GameStore);
+	const rootStore = useContext(RootStoreContext);
+	const { gameStore } = rootStore;
 
 	if (gameStore.loadingInitial) {
 		return <LoadingComponent activeDimmer={true} text='Loading Games' inverted={true} />;

@@ -1,14 +1,20 @@
 import { observable, action, runInAction, configure } from 'mobx';
-import { createContext } from 'react';
 import { IGame } from '../models/game';
-import GamesApi from '../api/agent';
+import agent from '../api/agent';
 import { IResult } from '../models/result';
 import { IPagination } from '../models/pagination';
+import { RootStore } from './rootStore';
 
 // strict mode
 configure({ enforceActions: 'always' });
 
-class GameStore {
+export default class GameStore {
+	rootStore: RootStore;
+
+	constructor(rootStore: RootStore) {
+		this.rootStore = rootStore;
+	}
+
 	@observable games: IGame[] = [];
 	@observable selectedGame: IGame | null = null;
 	@observable loadingInitial = false;
@@ -18,7 +24,7 @@ class GameStore {
 	loadGames = async (pageNumber: number) => {
 		this.loadingInitial = true;
 		try {
-			const result: IResult<IGame[]> = await GamesApi.list(pageNumber);
+			const result: IResult<IGame[]> = await agent.Games.list(pageNumber);
 			runInAction('getting games...', () => {
 				this.games = [ ...result.data ];
 				this.pagination = result.pagination;
@@ -36,7 +42,7 @@ class GameStore {
 	loadGame = async (gameId: string) => {
 		this.loadingInitial = true;
 		try {
-			let result: IResult<IGame> = await GamesApi.getGame(gameId);
+			let result: IResult<IGame> = await agent.Games.getGame(gameId);
 			runInAction('getting game', () => {
 				this.selectedGame = result.data;
 				this.loadingInitial = false;
@@ -55,4 +61,4 @@ class GameStore {
 	};
 }
 
-export default createContext(new GameStore());
+// export default createContext(new GameStore());

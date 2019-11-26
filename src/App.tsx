@@ -12,14 +12,15 @@ import { IDeveloper } from './models/developer';
 import LoginComponent from './components/auth/LoginComponent';
 import { ScrollToTop } from './utils/scrollToTop';
 
-import GameStore from './stores/gameStore';
-
 import { observer } from 'mobx-react-lite';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RootStoreContext } from './stores/rootStore';
 
 const App: React.FC = () => {
-	const gameStore = useContext(GameStore);
+	const rootStore = useContext(RootStoreContext);
+	const { gameStore } = rootStore;
+
 	const { games } = gameStore;
 
 	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };

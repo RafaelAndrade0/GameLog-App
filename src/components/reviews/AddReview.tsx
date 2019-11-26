@@ -1,9 +1,8 @@
 import React, { FormEvent, useState, useContext } from 'react';
 import { Modal, Button, Form, Input, Grid, Header } from 'semantic-ui-react';
 import { IReview } from '../../models/review';
-
-import ReviewStore from '../../stores/reviewStore';
 import { observer } from 'mobx-react-lite';
+import { RootStoreContext } from '../../stores/rootStore';
 
 interface IProps {
 	title: string;
@@ -21,8 +20,9 @@ const AddReview: React.FC<IProps> = ({ open, handlecloseModal, title, gameId }) 
 		user: '5dc41a1582e6a234302d3e14'
 	});
 
-	const reviewStore = useContext(ReviewStore);
-	const { createReview, submitting } = reviewStore;
+	const rootStore = useContext(RootStoreContext);
+
+	const { createReview, submitting } = rootStore.reviewStore;
 
 	const handleFormSubmit = () => {
 		console.log(review);

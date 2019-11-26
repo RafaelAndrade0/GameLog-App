@@ -1,13 +1,19 @@
 import { observable, action, runInAction, configure } from 'mobx';
-import { createContext } from 'react';
 import { IReview } from '../models/review';
 import { IResult } from '../models/result';
-import GamesApi from '../api/agent';
+import agent from '../api/agent';
 import { toast } from 'react-toastify';
+import { RootStore } from './rootStore';
 
 configure({ enforceActions: 'always' });
 
-class ReviewStore {
+export default class ReviewStore {
+	rootStore: RootStore;
+
+	constructor(rootStore: RootStore) {
+		this.rootStore = rootStore;
+	}
+
 	@observable reviews: IReview[] = [];
 	@observable submitting = false;
 	@observable loadingReviews = false;
@@ -16,7 +22,7 @@ class ReviewStore {
 	loadReviews = async (gameId: string) => {
 		this.loadingReviews = true;
 		try {
-			const reviews: IResult<IReview[]> = await GamesApi.getReviews(gameId);
+			const reviews: IResult<IReview[]> = await agent.Games.getReviews(gameId);
 			runInAction('loading reviews', () => {
 				this.reviews = reviews.data;
 				this.loadingReviews = false;
@@ -33,7 +39,7 @@ class ReviewStore {
 	createReview = async (review: IReview) => {
 		this.submitting = true;
 		try {
-			const newReview: IResult<IReview> = await GamesApi.createReview(review);
+			const newReview: IResult<IReview> = await agent.Games.createReview(review);
 			runInAction('create review', () => {
 				// TODO: Create local map
 				this.reviews = [ ...this.reviews, newReview.data ];
@@ -50,4 +56,4 @@ class ReviewStore {
 	};
 }
 
-export default createContext(new ReviewStore());
+// export default createContext(new ReviewStore());

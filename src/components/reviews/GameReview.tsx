@@ -1,10 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Segment, Header, Divider, Comment, Icon, Container, Message, Placeholder } from 'semantic-ui-react';
 import { IUser } from '../../models/user';
-
-import ReviewStore from '../../stores/reviewStore';
 import { observer } from 'mobx-react-lite';
 import PaginationFull from '../layout/PaginationFull';
+import { RootStoreContext } from '../../stores/rootStore';
 
 interface IProps {
 	title: string;
@@ -12,8 +11,9 @@ interface IProps {
 }
 
 const GameReview: React.FC<IProps> = ({ title, gameId }) => {
-	const reviewStore = useContext(ReviewStore);
-	const { loadReviews, loadingReviews, reviews } = reviewStore;
+	const rootStore = useContext(RootStoreContext);
+
+	const { loadReviews, loadingReviews, reviews } = rootStore.reviewStore;
 
 	const [ currentPage, setCurrentPage ] = useState<number>(1);
 	const [ reviewsPerPage ] = useState<number>(3);
