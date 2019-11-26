@@ -55,5 +55,3 @@ export default class ReviewStore {
 		}
 	};
 }
-
-// export default createContext(new ReviewStore());

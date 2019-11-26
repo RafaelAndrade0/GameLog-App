@@ -1,22 +1,39 @@
-.App {
-  text-align: center;
+/*home page styles*/
+
+.masthead {
+	display: flex;
+	align-items: center;
+	background-image: linear-gradient(
+		135deg,
+		rgb(24, 42, 115) 0%,
+		rgb(33, 138, 174) 69%,
+		rgb(32, 167, 172) 89%
+	) !important;
+	height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
+.masthead .ui.menu .ui.button,
+.ui.menu a.ui.inverted.button {
+	margin-left: 0.5em;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.masthead h1.ui.header {
+	font-size: 4em;
+	font-weight: normal;
 }
 
-.App-link {
-  color: #09d3ac;
+.masthead h2 {
+	font-size: 1.7em;
+	font-weight: normal;
+}
+
+.login {
+	/* background-image: url('../public/images/icon.png'); */
+	/* background-image: linear-gradient(
+		135deg,
+		rgb(24, 42, 115) 0%,
+		rgb(33, 138, 174) 69%,
+		rgb(32, 167, 172) 89%
+	) !important; */
+	/* height: 100vh; */
 }

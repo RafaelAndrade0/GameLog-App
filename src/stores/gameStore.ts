@@ -60,5 +60,3 @@ export default class GameStore {
 		this.selectedGame = null;
 	};
 }
-
-// export default createContext(new GameStore());

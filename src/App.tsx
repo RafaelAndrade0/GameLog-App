@@ -16,6 +16,7 @@ import { observer } from 'mobx-react-lite';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RootStoreContext } from './stores/rootStore';
+import Root from './components/pages/Root';
 
 const App: React.FC = () => {
 	const rootStore = useContext(RootStoreContext);
@@ -42,7 +43,7 @@ const App: React.FC = () => {
 			<ToastContainer />
 			<ScrollToTop />
 			<Route exact path='/' red>
-				<LoginComponent />
+				<Root />
 			</Route>
 			<Route
 				exact
@@ -61,6 +62,9 @@ const App: React.FC = () => {
 								</Route>
 								<Route exact path='/about'>
 									<About />
+								</Route>
+								<Route exact path='/login'>
+									<LoginComponent />
 								</Route>
 								<Route path='/games/:id' component={GameDetails} />
 							</Switch>
