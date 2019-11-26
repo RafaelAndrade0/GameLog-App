@@ -15,19 +15,23 @@ export default class UserStore {
 
 	@observable user: IUser | null = null;
 	@observable userResponse: IUserResponse | null = null;
-	@observable token: string | null = null;
 
 	@action
 	login = async (values: IUserFormValues) => {
 		try {
 			const response = await agent.User.login(values);
-			// window.localStorage.setItem('token', response.token);
 			runInAction('user response', () => {
 				this.userResponse = response;
-				this.token = response.token;
 			});
+			this.rootStore.commomStore.setToken(response.token);
 		} catch (error) {
 			console.log(error);
 		}
+	};
+
+	@action
+	logout = () => {
+		this.rootStore.commomStore.setToken(null);
+		this.userResponse = null;
 	};
 }

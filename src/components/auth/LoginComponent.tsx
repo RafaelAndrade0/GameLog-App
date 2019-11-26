@@ -13,8 +13,8 @@ const LoginComponent: React.FC = () => {
 	const [ userForm, setUserForm ] = useState<IUserFormValues>({ email: '', password: '' });
 
 	const onFormSubmit = () => {
-		login(userForm).then(() => history.push('/home'));
-		// history.push('/home');
+		login(userForm);
+		history.push('/home');
 	};
 
 	const handleInputChange = (event: FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
