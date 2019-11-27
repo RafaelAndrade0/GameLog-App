@@ -15,7 +15,7 @@ export default class GameStore {
 		this.rootStore = rootStore;
 	}
 
-	@observable games: IGame[] = [];
+	@observable games: IGame[] | null = [];
 	@observable selectedGame: IGame | null = null;
 	@observable loadingInitial = false;
 	@observable pagination: IPagination = { baseUrl: '', page: 1, nextPage: 1, prevPage: 1 };
@@ -53,6 +53,11 @@ export default class GameStore {
 			});
 			console.log(error);
 		}
+	};
+
+	@action
+	clearGames = () => {
+		this.games = null;
 	};
 
 	@action

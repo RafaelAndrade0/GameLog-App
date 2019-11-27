@@ -17,26 +17,35 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RootStoreContext } from './stores/rootStore';
 import Root from './components/pages/Root';
+import LoadingComponent from './components/layout/LoadingComponent';
 
 const App: React.FC = () => {
 	const rootStore = useContext(RootStoreContext);
-	const { gameStore } = rootStore;
 
-	const { games } = gameStore;
+	const { setAppLoaded, token, appLoaded } = rootStore.commomStore;
+	const { getUser } = rootStore.userStore;
 
 	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };
 	const [ developer, setDeveloper ] = useState<IDeveloper>(initialDeveloper);
 
 	useEffect(
 		() => {
-			gameStore.loadGames(1);
+			if (token) {
+				getUser().finally(() => setAppLoaded());
+			} else {
+				setAppLoaded();
+			}
 		},
-		[ gameStore ]
+		[ getUser, setAppLoaded, token ]
 	);
 
 	const setDeveloperDetails = (developer: IDeveloper) => {
 		setDeveloper(developer);
 	};
+
+	if (!appLoaded) {
+		return <LoadingComponent activeDimmer={true} text='Loading App' inverted={true} />;
+	}
 
 	return (
 		<Router>
@@ -54,11 +63,7 @@ const App: React.FC = () => {
 						<Container style={{ marginTop: '7em' }}>
 							<Switch>
 								<Route exact path='/home'>
-									<Home
-										games={games}
-										developer={developer}
-										setDeveloperDetails={setDeveloperDetails}
-									/>
+									<Home developer={developer} setDeveloperDetails={setDeveloperDetails} />
 								</Route>
 								<Route exact path='/about'>
 									<About />

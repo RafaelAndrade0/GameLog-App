@@ -12,12 +12,11 @@ import { observer } from 'mobx-react-lite';
 import { RootStoreContext } from '../../stores/rootStore';
 
 interface IProps {
-	games: IGame[];
 	developer: IDeveloper;
 	setDeveloperDetails: (developer: IDeveloper) => void;
 }
 
-const Home: React.FC<IProps> = ({ games, setDeveloperDetails, developer }) => {
+const Home: React.FC<IProps> = ({ setDeveloperDetails, developer }) => {
 	const rootStore = useContext(RootStoreContext);
 	const { loadGames, pagination } = rootStore.gameStore;
 
@@ -38,12 +37,7 @@ const Home: React.FC<IProps> = ({ games, setDeveloperDetails, developer }) => {
 			</Grid.Column>
 			<Grid.Column width={10}>
 				<Fragment>
-					<Games
-						games={games}
-						renderItem={(game, index) => (
-							<GameItem key={index} game={game} setDeveloperDetails={setDeveloperDetails} />
-						)}
-					/>
+					<Games setDeveloperDetails={setDeveloperDetails} />
 				</Fragment>
 			</Grid.Column>
 		</Grid>

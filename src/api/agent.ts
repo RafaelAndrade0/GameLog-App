@@ -3,6 +3,7 @@ import { IGame } from '../models/game';
 import { IReview } from '../models/review';
 import { IUserFormValues, IUser, IUserResponse } from '../models/user';
 import { configure } from 'mobx';
+import { IResult } from '../models/result';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 
@@ -39,7 +40,8 @@ const Games = {
 
 const User = {
 	login: (user: IUserFormValues): Promise<IUserResponse> => requests.post('/auth/login', user),
-	register: (user: IUser): Promise<IUserResponse> => requests.post('/auth/register', user)
+	register: (user: IUser): Promise<IUserResponse> => requests.post('/auth/register', user),
+	current: (): Promise<IResult<IUser>> => requests.get('/auth/me')
 };
 
 export default { Games, User };
