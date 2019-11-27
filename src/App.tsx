@@ -60,7 +60,7 @@ const App: React.FC = () => {
 				render={() => (
 					<Fragment>
 						<Navbar title='GameLog' />
-						<Container style={{ marginTop: '7em' }}>
+						<Container style={{ marginTop: '2em' }}>
 							<Switch>
 								<Route exact path='/home'>
 									{isLoggedIn ? (
