@@ -43,6 +43,26 @@ export default class UserStore {
 	};
 
 	@action
+	register = async (user: IUser) => {
+		this.loading = true;
+		try {
+			const response = await agent.User.register(user);
+			runInAction(() => {
+				this.userResponse = response;
+				this.isLoggedIn = true;
+				this.loading = false;
+			});
+			history.push('/home');
+			this.rootStore.commomStore.setToken(response.token);
+		} catch (error) {
+			runInAction(() => {
+				this.loading = false;
+			});
+			console.log(error);
+		}
+	};
+
+	@action
 	getUser = async () => {
 		try {
 			const user: IResult<IUser> = await agent.User.current();

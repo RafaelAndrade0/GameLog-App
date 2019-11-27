@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react';
-import { Route, withRouter, Switch } from 'react-router-dom';
+import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
 import './App.css';
@@ -23,7 +23,7 @@ const App: React.FC = () => {
 	const rootStore = useContext(RootStoreContext);
 
 	const { setAppLoaded, token, appLoaded } = rootStore.commomStore;
-	const { getUser } = rootStore.userStore;
+	const { getUser, isLoggedIn } = rootStore.userStore;
 
 	const initialDeveloper: IDeveloper = { id: '', description: '', headquarters: '', name: '', website: '' };
 	const [ developer, setDeveloper ] = useState<IDeveloper>(initialDeveloper);
@@ -63,7 +63,11 @@ const App: React.FC = () => {
 						<Container style={{ marginTop: '7em' }}>
 							<Switch>
 								<Route exact path='/home'>
-									<Home developer={developer} setDeveloperDetails={setDeveloperDetails} />
+									{isLoggedIn ? (
+										<Home developer={developer} setDeveloperDetails={setDeveloperDetails} />
+									) : (
+										<Redirect to='/' />
+									)}
 								</Route>
 								<Route exact path='/about'>
 									<About />

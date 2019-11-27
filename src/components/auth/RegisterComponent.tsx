@@ -18,7 +18,7 @@ const RegisterComponent: React.FC = () => {
 					<Form.Input
 						// onChange={handleInputChange}
 						fluid
-						icon='user'
+						icon='mail'
 						iconPosition='left'
 						placeholder='E-mail address'
 						name='email'
