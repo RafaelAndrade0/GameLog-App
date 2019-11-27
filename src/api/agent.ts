@@ -3,6 +3,7 @@ import { IGame } from '../models/game';
 import { IReview } from '../models/review';
 import { IUserFormValues, IUser, IUserResponse } from '../models/user';
 import { IResult } from '../models/result';
+import { history } from '..';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 
@@ -17,11 +18,12 @@ axios.interceptors.request.use(
 	}
 );
 
-// axios.interceptors.response.use(undefined, (error) => {
-// 	if (error.response.status === 400) {
-// 		history.push('/about');
-// 	}
-// });
+axios.interceptors.response.use(undefined, (error) => {
+	if (error.response.status === 404) {
+		// console.log(error);
+		history.push('about');
+	}
+});
 
 const responseBody = (response: AxiosResponse) => response.data;
 

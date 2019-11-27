@@ -32,7 +32,7 @@ const Navbar: React.FC<Props> = (props) => {
 					{user && (
 						<Menu.Item position='right'>
 							<Image avatar spaced='right' src={'/images/user.jpg'} />
-							<Dropdown pointing='top left' text={user.name}>
+							<Dropdown pointing='top left' text={user.name.split(' ')[0]}>
 								<Dropdown.Menu>
 									<Dropdown.Item
 										as={Link}
