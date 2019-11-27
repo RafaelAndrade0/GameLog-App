@@ -1,11 +1,9 @@
 import React, { Fragment, useContext } from 'react';
 import { Grid } from 'semantic-ui-react';
 import Games from '../games/Games';
-import { IGame } from '../../models/game';
 import GameSearch from '../games/GameSearch';
 import DeveloperDetails from '../developers/DeveloperDetails';
 import { IDeveloper } from '../../models/developer';
-import GameItem from '../games/GameItem';
 import Pagination from '../layout/Pagination';
 
 import { observer } from 'mobx-react-lite';

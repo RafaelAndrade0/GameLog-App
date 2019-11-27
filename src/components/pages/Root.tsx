@@ -3,6 +3,7 @@ import { Container, Header, Button, Segment, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { RootStoreContext } from '../../stores/rootStore';
 import { observer } from 'mobx-react-lite';
+import LoginComponent from '../auth/LoginComponent';
 
 const Root: React.FC = () => {
 	const rootStore = useContext(RootStoreContext);
@@ -23,13 +24,14 @@ const Root: React.FC = () => {
 					</Fragment>
 				) : (
 					<Fragment>
-						<Header as='h2' inverted content={`Welcome to GameLog!`} />
-						<Button as={Link} size='huge' inverted to='/login'>
+						<LoginComponent />
+						{/* <Header as='h2' inverted content={`Welcome to GameLog!`} /> */}
+						{/* <Button as={Link} size='huge' inverted to='/login'>
 							Login
 						</Button>
 						<Button as={Link} size='huge' inverted to='/register'>
 							Register
-						</Button>
+						</Button> */}
 					</Fragment>
 				)}
 			</Container>

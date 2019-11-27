@@ -3,6 +3,7 @@ import { IUser, IUserFormValues, IUserResponse } from '../models/user';
 import agent from '../api/agent';
 import { RootStore } from './rootStore';
 import { IResult } from '../models/result';
+import { history } from '..';
 
 // strict mode
 configure({ enforceActions: 'always' });
@@ -17,9 +18,11 @@ export default class UserStore {
 	@observable user: IUser | null = null;
 	@observable userResponse: IUserResponse | null = null;
 	@observable isLoggedIn: boolean = false;
+	@observable loading: boolean = false;
 
 	@action
 	login = async (values: IUserFormValues) => {
+		this.loading = true;
 		try {
 			const response = await agent.User.login(values);
 			// const user: IResult<IUser> = await agent.User.current();
@@ -27,9 +30,14 @@ export default class UserStore {
 				this.userResponse = response;
 				// this.user = user.data;
 				this.isLoggedIn = true;
+				this.loading = false;
 			});
+			history.push('/home');
 			this.rootStore.commomStore.setToken(response.token);
 		} catch (error) {
+			runInAction(() => {
+				this.loading = false;
+			});
 			console.log(error);
 		}
 	};
@@ -52,5 +60,6 @@ export default class UserStore {
 		this.rootStore.commomStore.setToken(null);
 		this.userResponse = null;
 		this.isLoggedIn = false;
+		history.push('/');
 	};
 }

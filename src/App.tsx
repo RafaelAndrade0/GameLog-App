@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Route, withRouter, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
 import './App.css';
@@ -9,7 +9,6 @@ import Navbar from './components/layout/Navbar';
 
 import GameDetails from './components/games/GameDetails';
 import { IDeveloper } from './models/developer';
-import LoginComponent from './components/auth/LoginComponent';
 import { ScrollToTop } from './utils/scrollToTop';
 
 import { observer } from 'mobx-react-lite';
@@ -48,7 +47,7 @@ const App: React.FC = () => {
 	}
 
 	return (
-		<Router>
+		<Fragment>
 			<ToastContainer />
 			<ScrollToTop />
 			<Route exact path='/' red>
@@ -68,17 +67,17 @@ const App: React.FC = () => {
 								<Route exact path='/about'>
 									<About />
 								</Route>
-								<Route exact path='/login'>
+								{/* <Route exact path='/login'>
 									<LoginComponent />
-								</Route>
+								</Route> */}
 								<Route path='/games/:id' component={GameDetails} />
 							</Switch>
 						</Container>
 					</Fragment>
 				)}
 			/>
-		</Router>
+		</Fragment>
 	);
 };
 
-export default observer(App);
+export default withRouter(observer(App));

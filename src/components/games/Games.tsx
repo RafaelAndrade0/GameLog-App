@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { Card } from 'semantic-ui-react';
-import { IGame } from '../../models/game';
 import LoadingComponent from '../layout/LoadingComponent';
 import { observer } from 'mobx-react-lite';
 import { RootStoreContext } from '../../stores/rootStore';
@@ -22,7 +21,7 @@ const Games: React.FC<Iprops> = ({ setDeveloperDetails }) => {
 				clearGames();
 			};
 		},
-		[ loadGames ]
+		[ loadGames, clearGames ]
 	);
 
 	if (loadingInitial || games === null) {

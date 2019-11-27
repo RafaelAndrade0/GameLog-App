@@ -2,7 +2,6 @@ import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import { IGame } from '../models/game';
 import { IReview } from '../models/review';
 import { IUserFormValues, IUser, IUserResponse } from '../models/user';
-import { configure } from 'mobx';
 import { IResult } from '../models/result';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
@@ -17,6 +16,12 @@ axios.interceptors.request.use(
 		return Promise.reject(error);
 	}
 );
+
+// axios.interceptors.response.use(undefined, (error) => {
+// 	if (error.response.status === 400) {
+// 		history.push('/about');
+// 	}
+// });
 
 const responseBody = (response: AxiosResponse) => response.data;
 
