@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { IPagination } from '../../models/pagination';
 import { Button, Icon } from 'semantic-ui-react';
+import { RootStoreContext } from '../../stores/rootStore';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
 	pagination: IPagination;
@@ -9,10 +11,12 @@ interface IProps {
 }
 
 const Pagination: React.FC<IProps> = ({ pagination, prevPage, nextPage }) => {
+	const rootStore = useContext(RootStoreContext);
+	const { loadingInitial } = rootStore.gameStore;
 	return (
 		<Fragment>
 			{pagination.prevPage && (
-				<Button animated floated='left' color='red' onClick={prevPage}>
+				<Button disabled={loadingInitial} animated floated='left' color='red' onClick={prevPage}>
 					<Button.Content visible>Prev. Page</Button.Content>
 					<Button.Content hidden>
 						<Icon name='arrow left' />
@@ -20,7 +24,7 @@ const Pagination: React.FC<IProps> = ({ pagination, prevPage, nextPage }) => {
 				</Button>
 			)}
 			{pagination.nextPage && (
-				<Button animated floated='right' color='blue' onClick={nextPage}>
+				<Button disabled={loadingInitial} animated floated='right' color='blue' onClick={nextPage}>
 					<Button.Content visible>Next Page</Button.Content>
 					<Button.Content hidden>
 						<Icon name='arrow right' />
@@ -31,4 +35,4 @@ const Pagination: React.FC<IProps> = ({ pagination, prevPage, nextPage }) => {
 	);
 };
 
-export default Pagination;
+export default observer(Pagination);

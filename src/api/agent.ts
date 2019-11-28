@@ -21,7 +21,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(undefined, (error) => {
 	if (error.response.status === 404) {
 		// console.log(error);
-		history.push('about');
+		// history.push('about');
 	}
 });
 
