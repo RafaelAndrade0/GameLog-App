@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Segment, Loader, Dimmer, Placeholder } from 'semantic-ui-react';
 import LoadingComponent from '../layout/LoadingComponent';
 import { observer } from 'mobx-react-lite';
 import { RootStoreContext } from '../../stores/rootStore';
@@ -25,7 +25,23 @@ const Games: React.FC<Iprops> = ({ setDeveloperDetails }) => {
 	);
 
 	if (loadingInitial || games === null) {
-		return <LoadingComponent activeDimmer={true} text='Loading Games' inverted={true} />;
+		return (
+			<Fragment>
+				{/* <LoadingComponent activeDimmer={true} text='Loading Games' inverted={true} />; */}
+				<Segment>
+					<Dimmer active inverted>
+						<Loader inverted>Loading Games</Loader>
+					</Dimmer>
+					<Placeholder>
+						<Placeholder.Line />
+						<Placeholder.Line />
+						<Placeholder.Line />
+						<Placeholder.Line />
+						<Placeholder.Line />
+					</Placeholder>
+				</Segment>
+			</Fragment>
+		);
 	}
 
 	return (
