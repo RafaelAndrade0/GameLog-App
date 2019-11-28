@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import { Card, Segment, Loader, Dimmer, Placeholder } from 'semantic-ui-react';
-import LoadingComponent from '../layout/LoadingComponent';
 import { observer } from 'mobx-react-lite';
 import { RootStoreContext } from '../../stores/rootStore';
 import GameItem from './GameItem';

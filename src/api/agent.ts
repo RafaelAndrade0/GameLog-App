@@ -3,7 +3,6 @@ import { IGame } from '../models/game';
 import { IReview } from '../models/review';
 import { IUserFormValues, IUser, IUserResponse } from '../models/user';
 import { IResult } from '../models/result';
-import { history } from '..';
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1';
 
