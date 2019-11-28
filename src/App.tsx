@@ -18,6 +18,7 @@ import { RootStoreContext } from './stores/rootStore';
 import Root from './components/pages/Root';
 import LoadingComponent from './components/layout/LoadingComponent';
 import NotFound from './components/pages/NotFound';
+import Profile from './components/pages/Profile';
 
 const App: React.FC = () => {
 	const rootStore = useContext(RootStoreContext);
@@ -72,6 +73,7 @@ const App: React.FC = () => {
 								<Route exact path='/about'>
 									<About />
 								</Route>
+								<Route path='/profile' component={Profile} />
 								<Route path='/games/:id' component={GameDetails} />
 								<Route path='*' component={NotFound} />
 							</Switch>

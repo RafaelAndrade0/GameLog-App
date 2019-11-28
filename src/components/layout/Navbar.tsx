@@ -34,12 +34,7 @@ const Navbar: React.FC<Props> = (props) => {
 							<Image avatar spaced='right' src={'/images/user.jpg'} />
 							<Dropdown pointing='top left' text={user.name.split(' ')[0]}>
 								<Dropdown.Menu>
-									<Dropdown.Item
-										as={Link}
-										to={`/profile/${user.name}`}
-										text='My profile'
-										icon='user'
-									/>
+									<Dropdown.Item as={Link} to={`/profile`} text='My profile' icon='user' />
 									<Dropdown.Item onClick={logout} text='Logout' icon='power' />
 								</Dropdown.Menu>
 							</Dropdown>
