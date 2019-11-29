@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
-import { Card, Image, Icon, Button, Rating, List } from 'semantic-ui-react';
+import { Card, Image, Rating, List, Label } from 'semantic-ui-react';
 import { IGame } from '../../models/game';
-import { Link } from 'react-router-dom';
 import { IDeveloper } from '../../models/developer';
 
 interface Iprops {
@@ -34,11 +33,13 @@ const GameItem: React.FC<Iprops> = ({ game, setDeveloperDetails }) => {
 					</Card.Description>
 				</Card.Content>
 				<Card.Content extra>
-					<Link to={`games/${game.id}`}>
-						<Button fluid basic color='blue'>
+					{game.plataform.map((game, index) => <Label key={index}>{game}</Label>)}
+
+					{/* <Link to={`games/${game.id}`}>
+						<Button basic color='blue'>
 							<Icon name='search' />
 						</Button>
-					</Link>
+					</Link> */}
 				</Card.Content>
 			</Card>
 		</Fragment>
