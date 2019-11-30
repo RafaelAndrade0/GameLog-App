@@ -46,7 +46,7 @@ const Games = {
 
 const User = {
 	login: (user: IUserFormValues): Promise<IUserResponse> => requests.post('/auth/login', user),
-	register: (user: IUser): Promise<IUserResponse> => requests.post('/auth/register', user),
+	register: (user: IUserFormValues): Promise<IUserResponse> => requests.post('/auth/register', user),
 	current: (): Promise<IResult<IUser>> => requests.get('/auth/me')
 };
 

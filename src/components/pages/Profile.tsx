@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, Fragment } from 'react';
+import React, { useContext, Fragment } from 'react';
 import { RootStoreContext } from '../../stores/rootStore';
-import { Segment, Item, Placeholder, Label } from 'semantic-ui-react';
+import { Segment, Item, Label } from 'semantic-ui-react';
 
 const Profile: React.FC = () => {
 	const rootStore = useContext(RootStoreContext);

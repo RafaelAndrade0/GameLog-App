@@ -11,6 +11,7 @@ export interface IUserResponse {
 }
 
 export interface IUserFormValues {
+	name?: string;
 	email: string;
 	password: string;
 }
