@@ -1,44 +1,57 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=910px height=431px src="https://user-images.githubusercontent.com/30444471/69907119-d4484f00-13ad-11ea-96d4-1fb6efd23a5e.PNG" alt="Logo do Projeto"></a>
+</p>
 
-## Available Scripts
 
-In the project directory, you can run:
+<h3 align="center">GameLog</h3>
 
-### `npm start`
+---
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<p align="center"> Projeto nos moldes dos sites Metacritic e HowLongToBeat. Feito com React e Typescript.
+    <br> 
+</p>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## 📝 Índice
++ [Sobre](#sobre)
++ [Primeiros Passos](#primeiros_passos)
++ [Feito Com](#feito_com)
++ [Autores](#autores)
++ [Agradecimentos](#agradecimentos)
 
-### `npm test`
+## 🧐 Sobre <a name = "sobre"></a>
+Meu objetivo com esse projeto é reforçar minhas habilidades como desenvolvedor Fullstack! O app está sendo feito com base nas funcionalidades dos sites Metacritic e HowLongToBeat. De forma resumida é um agregador de jogos, onde é possível dar notas, inserir reviews, cadastrar usuários, fazer upload de fotos e etc. A API utilizada também foi feita por mim e [está disponível aqui.](https://github.com/RafaelAndrade0/Game-Log-API)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🏁 Primeiros Passos <a name = "primeiros_passos"></a>
+Estas intruçōes te darão uma cópia funcional do projeto na sua máquina local para desenvolvimento e testes.
 
-### `npm run build`
+### Pré-requisitos
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O aplicativo tem como base a API que [está disponível aqui.](https://github.com/RafaelAndrade0/Game-Log-API) Para executar a API basta clonar o projeto e executar:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+NPM RUN DEV
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Instalação
 
-### `npm run eject`
+Para rodar o app basta clonar o projeto e executar
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+NPM INSTALL
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+NPM START
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Outras dúvidas podem ser sanadas pelo repositório do [Create React App.](https://github.com/facebook/create-react-app)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## ⛏️ Feito Com <a name = "feito_com"></a>
+- [ReactJs](https://reactjs.org) - Web Framework
+- [Typescript](https://www.typescriptlang.org/) - Javascript Superset
+- [Mobx](https://mobx.js.org/README.html) - State Management
+- [SemanticUI](https://semantic-ui.com/) - CSS Framework
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ✍️ Autores <a name = "autores"></a>
+- [@RafaelAndrade0](https://github.com/RafaelAndrade0) - Ideia & Trabalho inicial
