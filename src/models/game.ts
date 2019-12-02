@@ -13,3 +13,12 @@ export interface IGame {
 	reviews: IReview[];
 	averageScore: number;
 }
+
+export interface IGameFormValues {
+	title: string;
+	description: string;
+	genre: string[];
+	plataform: string[];
+	developer: string[];
+	initialrelease: string;
+}
