@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Card, Image, Rating, List, Label, Button, Icon } from 'semantic-ui-react';
+import { Card, Image, Rating, List, Label, Button } from 'semantic-ui-react';
 import { IGame } from '../../models/game';
 import { IDeveloper } from '../../models/developer';
 import { Link } from 'react-router-dom';
