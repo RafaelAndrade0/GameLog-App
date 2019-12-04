@@ -64,7 +64,7 @@ const App: React.FC = () => {
 						<Navbar title='GameLog' />
 						<Container style={{ marginTop: '2em' }}>
 							<Switch>
-								<Route exact path='/home'>
+								<Route exact path='/games'>
 									{isLoggedIn ? (
 										<Home developer={developer} setDeveloperDetails={setDeveloperDetails} />
 									) : (

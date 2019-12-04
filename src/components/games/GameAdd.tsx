@@ -8,9 +8,11 @@ import TextAreaInput from '../../commom/form/TextAreaInput';
 import DropdownInput from '../../commom/form/DropdownInput';
 import { RootStoreContext } from '../../stores/rootStore';
 import { IGameFormValues } from '../../models/game';
+import { observer } from 'mobx-react-lite';
 
 const GameAdd: React.FC = () => {
 	const rootStore = useContext(RootStoreContext);
+	const { addGame, loadingInitial } = rootStore.gameStore;
 
 	const validate = combineValidators({
 		title: composeValidators(isRequired({ message: 'Title is Required!' }))(),
@@ -20,8 +22,10 @@ const GameAdd: React.FC = () => {
 		developer: composeValidators(isRequired({ message: 'Developer is Required' }))()
 	});
 
-	const handleFinalFormSubmit = (e: IGameFormValues) => {
-		console.log(e);
+	const handleFinalFormSubmit = (formValues: IGameFormValues) => {
+		formValues.initialrelease = '2020-10-19';
+		console.log(formValues);
+		addGame(formValues);
 	};
 
 	const options = [
@@ -31,15 +35,15 @@ const GameAdd: React.FC = () => {
 	];
 
 	const optionsPlataform = [
-		{ key: 'ps3', text: 'PS3', value: 'ps3' },
-		{ key: 'ps4', text: 'PS4', value: 'ps4' },
+		{ key: 'ps3', text: 'PS3', value: 'PS3' },
+		{ key: 'ps4', text: 'PS4', value: 'PS4' },
 		{ key: 'v', text: 'PS Vita', value: 'PSVITA' }
 	];
 
 	const optionsDeveloper = [
-		{ key: 'se', text: 'Square Enix', value: 'squareenix' },
-		{ key: 'at', text: 'Atlus', value: 'atlus' },
-		{ key: 'cap', text: 'Capcom', value: 'capcom' }
+		{ key: 'se', text: 'Square Enix', value: '5d725cd2c4ded7bcb480eaa2' },
+		{ key: 'at', text: 'Atlus', value: '5d725a4a7b292f5f8ceff789' },
+		{ key: 'cap', text: 'Capcom', value: '5d725c84c4ded7bcb480eaa0' }
 	];
 
 	return (
@@ -82,12 +86,11 @@ const GameAdd: React.FC = () => {
 									/>
 
 									<Button
-										// disabled={invalid || pristine || loading}
-										disabled={invalid || pristine}
+										disabled={invalid || pristine || loadingInitial}
 										color='blue'
 										fluid
 										size='large'
-										// loading={loading}
+										loading={loadingInitial}
 									>
 										Add!
 									</Button>
@@ -101,4 +104,4 @@ const GameAdd: React.FC = () => {
 	);
 };
 
-export default GameAdd;
+export default observer(GameAdd);

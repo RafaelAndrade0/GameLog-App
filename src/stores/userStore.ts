@@ -32,7 +32,7 @@ export default class UserStore {
 				this.isLoggedIn = true;
 				this.loading = false;
 			});
-			history.push('/home');
+			history.push('/games');
 			this.rootStore.commomStore.setToken(response.token);
 		} catch (error) {
 			runInAction(() => {
@@ -52,7 +52,7 @@ export default class UserStore {
 				this.isLoggedIn = true;
 				this.loading = false;
 			});
-			history.push('/home');
+			history.push('/games');
 			this.rootStore.commomStore.setToken(response.token);
 		} catch (error) {
 			runInAction(() => {

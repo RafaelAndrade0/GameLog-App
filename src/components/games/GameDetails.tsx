@@ -51,7 +51,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 
 	return (
 		<Fragment>
-			<Link to='/home'>
+			<Link to='/games'>
 				<Button animated color='orange'>
 					<Button.Content visible>Go Back!</Button.Content>
 					<Button.Content hidden>
@@ -90,6 +90,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 									src={`https://via.placeholder.com/200`}
 									// src={`http://localhost:5000/uploads/${singleGame.photo}`}
 								/>
+
 								<Item.Content>
 									{/* <Item.Header as='h2'>{selectedGame!.title}</Item.Header> */}
 									<Item.Description>{selectedGame.description}</Item.Description>
@@ -115,6 +116,16 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 									<Statistic.Label>User Score</Statistic.Label>
 								</Statistic>
 							)}
+							{/* <Button
+								floated='right'
+								style={{ marginTop: '1em' }}
+								icon
+								labelPosition='left'
+								color='yellow'
+							>
+								<Icon name='pencil' />
+								Edit Image
+							</Button> */}
 						</Grid.Column>
 					</Grid>
 				</Container>

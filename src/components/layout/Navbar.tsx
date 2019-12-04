@@ -19,10 +19,10 @@ const Navbar: React.FC<Props> = (props) => {
 					<Menu.Item header>
 						<Image size='mini' src='/images/icon.png' style={{ marginRight: '1.5em' }} />
 
-						<Link to='/home'>{props.title}</Link>
+						<Link to='/games'>{props.title}</Link>
 					</Menu.Item>
 					<Menu.Item>
-						<Link to='/home'>Home</Link>
+						<Link to='/games'>Home</Link>
 					</Menu.Item>
 
 					<Menu.Item>

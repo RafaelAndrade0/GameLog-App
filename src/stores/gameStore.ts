@@ -5,6 +5,8 @@ import { IResult } from '../models/result';
 import { IPagination } from '../models/pagination';
 import { RootStore } from './rootStore';
 
+import { history } from '..';
+
 // strict mode
 configure({ enforceActions: 'always' });
 
@@ -78,6 +80,7 @@ export default class GameStore {
 			console.log(result);
 			runInAction(() => {
 				this.loadingInitial = false;
+				history.push('/games');
 			});
 		} catch (error) {
 			runInAction(() => {
