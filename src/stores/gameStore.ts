@@ -1,5 +1,5 @@
 import { observable, action, runInAction, configure } from 'mobx';
-import { IGame } from '../models/game';
+import { IGame, IGameFormValues } from '../models/game';
 import agent from '../api/agent';
 import { IResult } from '../models/result';
 import { IPagination } from '../models/pagination';
@@ -20,6 +20,8 @@ export default class GameStore {
 	@observable loadingInitial = false;
 	@observable pagination: IPagination = { baseUrl: '', page: 1, nextPage: 1, prevPage: 1 };
 
+	@observable gamesCache = new Map<string, IGame>();
+
 	@action
 	loadGames = async (pageNumber: number) => {
 		this.loadingInitial = true;
@@ -29,6 +31,9 @@ export default class GameStore {
 				this.games = [ ...result.data ];
 				this.pagination = result.pagination;
 				this.loadingInitial = false;
+				result.data.forEach((game) => {
+					this.gamesCache.set(game.id, game);
+				});
 			});
 		} catch (error) {
 			runInAction('getting games error', () => {
@@ -38,17 +43,44 @@ export default class GameStore {
 		}
 	};
 
+	getGame = (id: string) => {
+		return this.gamesCache.get(id);
+	};
+
 	@action
 	loadGame = async (gameId: string) => {
 		this.loadingInitial = true;
+		let game = this.getGame(gameId);
+		if (game) {
+			this.selectedGame = game;
+			this.loadingInitial = false;
+		} else {
+			try {
+				let result: IResult<IGame> = await agent.Games.getGame(gameId);
+				runInAction('getting game', () => {
+					this.selectedGame = result.data;
+					this.loadingInitial = false;
+				});
+			} catch (error) {
+				runInAction('getting game error', () => {
+					this.loadingInitial = false;
+				});
+				console.log(error);
+			}
+		}
+	};
+
+	@action
+	addGame = async (game: IGameFormValues) => {
+		this.loadingInitial = true;
 		try {
-			let result: IResult<IGame> = await agent.Games.getGame(gameId);
-			runInAction('getting game', () => {
-				this.selectedGame = result.data;
+			let result: IResult<IGame> = await agent.Games.create(game);
+			console.log(result);
+			runInAction(() => {
 				this.loadingInitial = false;
 			});
 		} catch (error) {
-			runInAction('getting game error', () => {
+			runInAction(() => {
 				this.loadingInitial = false;
 			});
 			console.log(error);

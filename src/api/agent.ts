@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-import { IGame } from '../models/game';
+import { IGameFormValues } from '../models/game';
 import { IReview } from '../models/review';
 import { IUserFormValues, IUser, IUserResponse } from '../models/user';
 import { IResult } from '../models/result';
@@ -38,7 +38,7 @@ const requests = {
 
 const Games = {
 	list: (pageNumber: string | undefined | number) => requests.get('games', { params: { page: pageNumber } }),
-	create: (game: IGame) => requests.post('/games', game),
+	create: (game: IGameFormValues) => requests.post('/games', game),
 	getGame: (id: string) => requests.get(`games/${id}`),
 	getReviews: (id: string) => requests.get(`games/${id}/reviews`),
 	createReview: (review: IReview) => requests.post('reviews', review)
