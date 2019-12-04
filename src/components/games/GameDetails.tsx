@@ -1,6 +1,6 @@
-import React, { useEffect, useState, Fragment, useContext } from 'react';
+import React, { useEffect, useState, Fragment, useContext, useRef } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Segment, Item, Label, Container, Button, Icon, Statistic, Grid } from 'semantic-ui-react';
+import { Segment, Item, Label, Container, Button, Icon, Statistic, Grid, Form } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import LoadingComponent from '../layout/LoadingComponent';
 import AddReview from '../reviews/AddReview';
@@ -16,7 +16,9 @@ interface Iprops {
 
 const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 	const rootStore = useContext(RootStoreContext);
-	const { selectedGame, loadingInitial, loadGame, clearSelectedGame } = rootStore.gameStore;
+	const { selectedGame, loadingInitial, loadGame, clearSelectedGame, updateGamePhoto } = rootStore.gameStore;
+
+	const refInput = useRef<HTMLInputElement>(null);
 
 	useEffect(
 		() => {
@@ -30,6 +32,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 	);
 
 	const [ openModal, setOpenModal ] = useState<boolean>(false);
+	const [ image, setImage ] = useState<File>();
 
 	const handleModal = (state: boolean) => {
 		setOpenModal(state);
@@ -42,6 +45,22 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 			return 'yellow';
 		} else {
 			return 'red';
+		}
+	};
+
+	const changeInputImage = () => {
+		if (refInput.current && refInput.current.files) {
+			setImage(refInput.current.files[0]);
+		}
+	};
+
+	const submitImage = () => {
+		console.log(image);
+		const file = new FormData();
+		if (image) {
+			file.set('file', image);
+			updateGamePhoto(match.params.id, file);
+			setImage(undefined);
 		}
 	};
 
@@ -87,8 +106,8 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 									bordered
 									size='small'
 									floated='left'
-									src={`https://via.placeholder.com/200`}
-									// src={`http://localhost:5000/uploads/${singleGame.photo}`}
+									// src={`https://via.placeholder.com/200`}
+									src={`http://localhost:5000/uploads/${selectedGame.photo}`}
 								/>
 
 								<Item.Content>
@@ -101,6 +120,29 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 									</Item.Extra>
 								</Item.Content>
 							</Item>
+
+							<Form onSubmit={submitImage} style={{ marginTop: '2em' }}>
+								<Label
+									color='yellow'
+									onClick={() => refInput.current!.click()}
+									size='large'
+									style={{ cursor: 'pointer' }}
+								>
+									<Icon name='file' /> Upload Photo
+								</Label>
+								<input ref={refInput} type='file' hidden onChange={changeInputImage} />
+
+								<Button
+									circular
+									disabled={image ? false : true}
+									loading={loadingInitial}
+									type='submit'
+									size='small'
+								>
+									Ok
+								</Button>
+								{image && `${image.name}`}
+							</Form>
 						</Grid.Column>
 						<Grid.Column width={2}>
 							{selectedGame.averageScore && (
@@ -116,16 +158,6 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 									<Statistic.Label>User Score</Statistic.Label>
 								</Statistic>
 							)}
-							{/* <Button
-								floated='right'
-								style={{ marginTop: '1em' }}
-								icon
-								labelPosition='left'
-								color='yellow'
-							>
-								<Icon name='pencil' />
-								Edit Image
-							</Button> */}
 						</Grid.Column>
 					</Grid>
 				</Container>

@@ -41,7 +41,8 @@ const Games = {
 	create: (game: IGameFormValues) => requests.post('/games', game),
 	getGame: (id: string) => requests.get(`games/${id}`),
 	getReviews: (id: string) => requests.get(`games/${id}/reviews`),
-	createReview: (review: IReview) => requests.post('reviews', review)
+	createReview: (review: IReview) => requests.post('reviews', review),
+	updateGamePhoto: (id: string, data: FormData) => requests.put(`games/${id}/photo`, data)
 };
 
 const User = {

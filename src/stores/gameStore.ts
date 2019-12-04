@@ -91,6 +91,25 @@ export default class GameStore {
 	};
 
 	@action
+	updateGamePhoto = async (id: string, data: FormData) => {
+		this.loadingInitial = true;
+		try {
+			const photo: IResult<string> = await agent.Games.updateGamePhoto(id, data);
+			runInAction(() => {
+				this.selectedGame!.photo = photo.data;
+				this.loadingInitial = false;
+			});
+			// console.log(photo.data);
+			// history.push(`games/${id}`);
+		} catch (error) {
+			runInAction(() => {
+				this.loadingInitial = false;
+			});
+			console.log(error);
+		}
+	};
+
+	@action
 	clearGames = () => {
 		this.games = null;
 	};
