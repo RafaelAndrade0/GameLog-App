@@ -107,7 +107,7 @@ const GameDetails: React.FC<RouteComponentProps<Iprops>> = ({ match }) => {
 									size='small'
 									floated='left'
 									// src={`https://via.placeholder.com/200`}
-									src={`http://localhost:5000/uploads/${selectedGame.photo}`}
+									src={`http://localhost:5000/uploads/${selectedGame.photo}?${new Date().getTime()}`}
 								/>
 
 								<Item.Content>

@@ -22,7 +22,7 @@ const Root: React.FC = () => {
 				{isLoggedIn && user ? (
 					<Fragment>
 						<Header as='h2' inverted content={`Welcome back ${user.name}!`} />
-						<Button as={Link} to='/home' size='huge' inverted>
+						<Button as={Link} to='/games' size='huge' inverted>
 							Go to Home!
 						</Button>
 					</Fragment>

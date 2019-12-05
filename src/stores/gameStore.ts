@@ -96,11 +96,11 @@ export default class GameStore {
 		try {
 			const photo: IResult<string> = await agent.Games.updateGamePhoto(id, data);
 			runInAction(() => {
-				this.selectedGame!.photo = photo.data;
+				if (this.selectedGame) {
+					this.selectedGame = { ...this.selectedGame, photo: photo.data };
+				}
 				this.loadingInitial = false;
 			});
-			// console.log(photo.data);
-			// history.push(`games/${id}`);
 		} catch (error) {
 			runInAction(() => {
 				this.loadingInitial = false;
